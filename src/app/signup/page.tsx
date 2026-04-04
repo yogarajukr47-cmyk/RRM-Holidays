@@ -115,6 +115,7 @@ export default function SignupPage() {
                   placeholder="Your full name"
                   required
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/80 border border-white/10 text-stone-200 text-sm placeholder:text-stone-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -130,6 +131,7 @@ export default function SignupPage() {
                   placeholder="you@example.com"
                   required
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/80 border border-white/10 text-stone-200 text-sm placeholder:text-stone-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -144,6 +146,7 @@ export default function SignupPage() {
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 98765 43210"
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/80 border border-white/10 text-stone-200 text-sm placeholder:text-stone-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+                  suppressHydrationWarning
                 />
               </div>
             </div>
@@ -159,6 +162,7 @@ export default function SignupPage() {
                   placeholder="Min. 6 characters"
                   required
                   className="w-full pl-11 pr-12 py-3 rounded-xl bg-neutral-900/80 border border-white/10 text-stone-200 text-sm placeholder:text-stone-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+                  suppressHydrationWarning
                 />
                 <button
                   type="button"
@@ -181,6 +185,7 @@ export default function SignupPage() {
                   placeholder="Re-enter password"
                   required
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-neutral-900/80 border border-white/10 text-stone-200 text-sm placeholder:text-stone-600 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+                  suppressHydrationWarning
                 />
               </div>
             </div>

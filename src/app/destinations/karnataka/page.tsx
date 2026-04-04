@@ -40,6 +40,7 @@ export default function KarnatakaPage() {
   });
 
   return (
+    <>
     <div className="min-h-screen bg-[#0a0a0a]">
       <ScrollReveal />
       {/* Navigation */}
@@ -84,7 +85,7 @@ export default function KarnatakaPage() {
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl animate-float" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center pt-24 pb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-stone-300 mb-6">
-            <Sparkles size={14} className="text-amber-400" /> 26+ Places to Explore
+            <Sparkles size={14} className="text-amber-400" /> 53+ Places to Explore
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-4">
             Discover <span className="text-gradient-warm">Karnataka</span>
@@ -142,10 +143,8 @@ export default function KarnatakaPage() {
             {filteredPlaces.slice(0, visiblePlaces).map((place, idx) => (
               <div key={place.name} className="reveal group rounded-2xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-lift card-shine">
                 <Link href={`/destinations/karnataka/${place.slug}`} className="block">
-                <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-amber-900/20 to-neutral-900">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-6xl opacity-30">{place.category === 'Heritage' ? '🏛️' : place.category === 'Hill Station' ? '🏔️' : place.category === 'Coastal City' ? '🏖️' : place.category === 'Temple Town' ? '🛕' : place.category === 'Fort City' ? '🏰' : place.category === 'Nature Hub' ? '🌿' : '🏙️'}</span>
-                  </div>
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image src={place.img || `/states/karnataka-cover.jpg`} alt={place.name} fill className="object-cover" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 uppercase tracking-wider">
                     {place.category}
@@ -216,5 +215,6 @@ export default function KarnatakaPage() {
         <ArrowUp size={18} className="text-stone-300" />
       </Link>
     </div>
+    </>
   );
 }

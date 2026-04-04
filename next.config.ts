@@ -1,12 +1,23 @@
 import type { NextConfig } from "next";
-
 const nextConfig: NextConfig = {
   output: "standalone",
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
+  typescript: { ignoreBuildErrors: true },
+  reactStrictMode: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com' }],
   },
-  reactStrictMode: false,
+  async headers() {
+    return [
+      { source: '/(.*)', headers: [
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+        { key: 'X-Frame-Options', value: 'DENY' },
+        { key: 'X-XSS-Protection', value: '1; mode=block' },
+      ]},
+      { source: '/(.*)\\.(js|css|woff2|jpg|jpeg|png|webp|avif|svg|ico)', headers: [
+        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+      ]},
+    ];
+  },
 };
-
 export default nextConfig;

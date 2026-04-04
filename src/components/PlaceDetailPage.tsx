@@ -27,8 +27,47 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
   const currentIndex = state.places.findIndex(p => p.slug === place.slug);
   const nearbyPlaces = state.places.filter((_, i) => i !== currentIndex).sort(() => Math.random() - 0.5).slice(0, 3);
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://rrmholidays.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Destinations",
+        "item": "https://rrmholidays.com/destinations"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": state.name,
+        "item": `https://rrmholidays.com/destinations/${state.slug}`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": place.name,
+        "item": `https://rrmholidays.com/destinations/${state.slug}/${place.slug}`
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
+      {/* BreadcrumbList Schema (JSON-LD) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+        }}
+      />
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
@@ -68,7 +107,11 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
           </div>
 
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-5xl">{place.emoji}</span>
+            {place.img && (
+              <div className="w-14 h-14 rounded-xl overflow-hidden border border-white/10 shadow-lg">
+                <Image src={place.img} alt={place.name} width={56} height={56} className="object-cover" />
+              </div>
+            )}
             <div>
               <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold ${colors.text} ${colors.lightBg} border ${colors.border} uppercase tracking-wider mb-1`}>{place.category}</span>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">{place.name}</h1>
@@ -183,8 +226,8 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {nearbyPlaces.map(np => (
                 <Link key={np.slug} href={`/destinations/${state.slug}/${np.slug}`} className="group rounded-xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-lift">
-                  <div className="relative aspect-[16/8] overflow-hidden bg-gradient-to-br from-neutral-800 to-neutral-900">
-                    <div className="absolute inset-0 flex items-center justify-center"><span className="text-4xl opacity-30">{np.emoji}</span></div>
+                  <div className="relative aspect-[16/8] overflow-hidden">
+                    <Image src={np.img || '/states/default-cover.jpg'} alt={np.name} fill className="object-cover" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute bottom-2 left-3">
                       <span className={`text-[10px] font-bold ${colors.text} uppercase tracking-wider`}>{np.category}</span>
@@ -211,7 +254,12 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
                 <ArrowLeft size={20} className="text-stone-500 group-hover:text-stone-300 transition-colors" />
                 <div>
                   <span className="text-[10px] text-stone-500 uppercase tracking-wider">Previous Place</span>
-                  <h4 className="text-sm font-bold text-stone-200 flex items-center gap-2">{prevPlace.emoji} {prevPlace.name}</h4>
+                  <h4 className="text-sm font-bold text-stone-200 flex items-center gap-2">
+                    {prevPlace.img ? (
+                      <span className="w-6 h-6 rounded overflow-hidden inline-block"><Image src={prevPlace.img} alt={prevPlace.name} width={24} height={24} className="object-cover" /></span>
+                    ) : <span>{prevPlace.emoji}</span>}
+                    {prevPlace.name}
+                  </h4>
                 </div>
               </Link>
             )}
@@ -219,7 +267,12 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
               <Link href={`/destinations/${state.slug}/${nextPlace.slug}`} className={`group flex items-center justify-end gap-4 p-4 rounded-xl bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all text-right ${colors.hoverBorder}`}>
                 <div>
                   <span className="text-[10px] text-stone-500 uppercase tracking-wider">Next Place</span>
-                  <h4 className="text-sm font-bold text-stone-200 flex items-center gap-2 justify-end">{nextPlace.emoji} {nextPlace.name}</h4>
+                  <h4 className="text-sm font-bold text-stone-200 flex items-center gap-2 justify-end">
+                    {nextPlace.name}
+                    {nextPlace.img ? (
+                      <span className="w-6 h-6 rounded overflow-hidden inline-block"><Image src={nextPlace.img} alt={nextPlace.name} width={24} height={24} className="object-cover" /></span>
+                    ) : <span>{nextPlace.emoji}</span>}
+                  </h4>
                 </div>
                 <ArrowRight size={20} className="text-stone-500 group-hover:text-stone-300 transition-colors" />
               </Link>

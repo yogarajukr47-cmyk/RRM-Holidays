@@ -153,6 +153,43 @@ export default function ReviewsPage() {
 
   return (
     <>
+      {/* ── FAQ Schema (JSON-LD) ── */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "How do I book a trip with RRM Holidays?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Simply message us on WhatsApp at +91 9108597154. Our travel experts will help you plan a custom itinerary based on your preferences, budget, and travel dates."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does RRM Holidays offer fixed tour packages?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No, we believe every trip should be unique. Instead of fixed packages, we create custom itineraries tailored to your preferences. Contact us on WhatsApp for a personalized quote."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What vehicles does RRM Holidays offer?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We offer 12+ vehicles including Sedan (Etios, Dzire), MUV (Innova, Crysta), Tempo Traveller, Mini Bus, Bus, and Force Urbania. All with transparent per-km pricing."
+                }
+              }
+            ]
+          })
+        }}
+      />
+
       {/* ─────────── NAVIGATION ─────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">

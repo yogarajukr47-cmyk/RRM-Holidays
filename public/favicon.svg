@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="100%" style="stop-color:#1E293B"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5C842"/>
+      <stop offset="50%" style="stop-color:#D4A03C"/>
+      <stop offset="100%" style="stop-color:#C47F17"/>
+    </linearGradient>
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="100%" style="stop-color:#F5C842"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark background -->
+  <rect width="512" height="512" rx="80" ry="80" fill="url(#bgGrad)"/>
+
+  <!-- Outer ring (compass style) -->
+  <circle cx="256" cy="210" r="130" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.4"/>
+  <circle cx="256" cy="210" r="120" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.25"/>
+
+  <!-- Compass tick marks -->
+  <g stroke="#D4A03C" stroke-width="2.5" opacity="0.6">
+    <line x1="256" y1="82" x2="256" y2="95"/>
+    <line x1="256" y1="325" x2="256" y2="338"/>
+    <line x1="128" y1="210" x2="141" y2="210"/>
+    <line x1="371" y1="210" x2="384" y2="210"/>
+  </g>
+  <g stroke="#D4A03C" stroke-width="1.5" opacity="0.3">
+    <line x1="165" y1="119" x2="174" y2="128"/>
+    <line x1="347" y1="119" x2="338" y2="128"/>
+    <line x1="165" y1="301" x2="174" y2="292"/>
+    <line x1="347" y1="301" x2="338" y2="292"/>
+  </g>
+
+  <!-- Sun -->
+  <circle cx="256" cy="175" r="38" fill="url(#sunGrad)" opacity="0.9"/>
+  <circle cx="256" cy="175" r="28" fill="#FFD700" opacity="0.5"/>
+
+  <!-- Sun rays -->
+  <g stroke="#F5C842" stroke-width="2" opacity="0.5" stroke-linecap="round">
+    <line x1="256" y1="130" x2="256" y2="140"/>
+    <line x1="256" y1="210" x2="256" y2="220"/>
+    <line x1="211" y1="175" x2="221" y2="175"/>
+    <line x1="291" y1="175" x2="301" y2="175"/>
+    <line x1="224" y1="143" x2="231" y2="150"/>
+    <line x1="281" y1="200" x2="288" y2="207"/>
+    <line x1="288" y1="143" x2="281" y2="150"/>
+    <line x1="231" y1="200" x2="224" y2="207"/>
+  </g>
+
+  <!-- Palm tree -->
+  <g transform="translate(256, 195)">
+    <!-- Trunk -->
+    <path d="M-3,0 C-5,30 -8,60 -12,90 C-13,95 -10,98 -8,95 L-4,92 C-2,50 0,25 3,0 Z" fill="#C47F17" opacity="0.85"/>
+    <!-- Fronds -->
+    <path d="M0,-5 C-15,-35 -50,-55 -70,-45 C-55,-50 -30,-30 -5,-8 Z" fill="#D4A03C" opacity="0.9"/>
+    <path d="M0,-5 C15,-35 50,-55 70,-45 C55,-50 30,-30 5,-8 Z" fill="#D4A03C" opacity="0.9"/>
+    <path d="M0,-5 C-10,-40 -25,-70 -35,-80 C-20,-65 -10,-35 -2,-8 Z" fill="#F5C842" opacity="0.8"/>
+    <path d="M0,-5 C10,-40 25,-70 35,-80 C20,-65 10,-35 2,-8 Z" fill="#F5C842" opacity="0.8"/>
+    <path d="M0,-5 C-30,-20 -60,-25 -80,-15 C-60,-25 -25,-18 -3,-3 Z" fill="#C47F17" opacity="0.7"/>
+    <path d="M0,-5 C30,-20 60,-25 80,-15 C60,-25 25,-18 3,-3 Z" fill="#C47F17" opacity="0.7"/>
+  </g>
+
+  <!-- Compass needle (decorative) -->
+  <g transform="translate(256, 210)" opacity="0.4">
+    <polygon points="0,-115 4,-100 0,-60 -4,-100" fill="#F5C842"/>
+    <polygon points="0,115 4,100 0,60 -4,100" fill="#D4A03C"/>
+  </g>
+
+  <!-- "RRM" text -->
+  <text x="256" y="385" text-anchor="middle" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="85" font-weight="800" letter-spacing="8" fill="url(#goldGrad)">RRM</text>
+
+  <!-- Subtle underline -->
+  <line x1="160" y1="405" x2="352" y2="405" stroke="#D4A03C" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+
+  <!-- "HOLIDAYS" small text -->
+  <text x="256" y="445" text-anchor="middle" font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-size="26" font-weight="400" letter-spacing="12" fill="#D4A03C" opacity="0.75">HOLIDAYS</text>
+</svg>

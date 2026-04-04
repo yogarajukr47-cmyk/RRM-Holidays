@@ -31,6 +31,7 @@ export default function GoaPage() {
   });
 
   return (
+    <>
     <div className="min-h-screen bg-[#0a0a0a]">
       <ScrollReveal />
       <nav className="fixed top-0 left-0 right-0 z-50 glass py-2">
@@ -84,8 +85,8 @@ export default function GoaPage() {
             {filteredPlaces.slice(0, visiblePlaces).map((place) => (
               <div key={place.name} className="reveal group rounded-2xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-lift card-shine">
                 <Link href={`/destinations/goa/${place.slug}`} className="block">
-                <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-pink-900/20 to-neutral-900">
-                  <div className="absolute inset-0 flex items-center justify-center"><span className="text-6xl opacity-30">{place.emoji}</span></div>
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image src={place.img || `/states/goa-cover.jpg`} alt={place.name} fill className="object-cover" sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold text-pink-400 bg-pink-500/10 border border-pink-500/20 uppercase tracking-wider">{place.category}</span>
                   <div className="absolute bottom-3 left-4 right-4"><h3 className="text-xl font-bold text-white">{place.name}</h3><p className="text-xs text-stone-300 flex items-center gap-1 mt-1"><MapPin size={12} /> Goa, India</p></div>
@@ -114,5 +115,6 @@ export default function GoaPage() {
       <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi RRM Holidays! I need help planning my Goa trip.')}`} target="_blank" rel="noopener noreferrer" className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-2xl hover:bg-green-400 transition-all whatsapp-float"><MessageCircle size={26} className="text-white" /></a>
       <Link href="#" className="fixed bottom-6 left-6 z-50 w-12 h-12 rounded-full glass flex items-center justify-center hover:border-amber-500/30 transition-all"><ChevronUp size={18} className="text-stone-300" /></Link>
     </div>
+    </>
   );
 }
