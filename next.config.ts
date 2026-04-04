@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   typescript: { ignoreBuildErrors: true },
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     formats: ['image/webp', 'image/avif'],
     remotePatterns: [{ protocol: 'https', hostname: 'images.unsplash.com' }],
   },
