@@ -19,6 +19,9 @@ import {
   Sheet, SheetContent, SheetHeader, SheetTitle,
 } from '@/components/ui/sheet';
 import useEmblaCarousel from 'embla-carousel-react';
+import dynamic from 'next/dynamic';
+
+const IndiaMap = dynamic(() => import('@/components/IndiaMap'), { ssr: false });
 
 /* ═══════════════════════════ DATA CONSTANTS ═══════════════════════════ */
 
@@ -170,13 +173,7 @@ const AI_TOOLS = [
   { title: 'Review Analyzer', desc: 'See what other travellers say about any destination — sentiment, pros, cons, and tips.', icon: BarChart3, link: '/review-analyzer', badge: 'New', badgeColor: 'bg-blue-500' },
 ];
 
-const MAP_STATES = [
-  { name: 'Karnataka', slug: 'karnataka', places: 38, top: '45%', left: '35%', color: '#f59e0b' },
-  { name: 'Kerala', slug: 'kerala', places: 13, top: '65%', left: '25%', color: '#06b6d4' },
-  { name: 'Tamil Nadu', slug: 'tamilnadu', places: 22, top: '60%', left: '55%', color: '#a855f7' },
-  { name: 'Goa', slug: 'goa', places: 16, top: '35%', left: '20%', color: '#ec4899' },
-  { name: 'Andhra Pradesh', slug: 'andhra', places: 19, top: '45%', left: '70%', color: '#f97316' },
-];
+const ALL_MARKERS_COUNT = 130;
 
 /* ═══════════════════════════ MAIN COMPONENT ═══════════════════════════ */
 
@@ -774,40 +771,14 @@ export default function Home() {
 
       {/* MAP EXPLORER */}
       <section className="relative py-20 md:py-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <span className="reveal text-amber-400 text-sm font-semibold tracking-wider uppercase flex items-center justify-center gap-2"><Compass size={16} /> Interactive Explorer</span>
             <h2 className="reveal stagger-1 text-3xl md:text-4xl font-extrabold mt-3 mb-4">Explore South India <span className="text-gradient-warm">on the Map</span></h2>
-            <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">Click on any state marker to discover its top destinations and start planning your journey.</p>
+            <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">{ALL_MARKERS_COUNT} destinations across 5 states — click any marker to discover and explore.</p>
           </div>
-          <div className="reveal stagger-2 map-explorer-container relative min-h-[400px] md:min-h-[500px]">
-            {/* Decorative gradient orbs */}
-            <div className="absolute top-[15%] left-[10%] w-48 h-48 bg-amber-500/5 rounded-full blur-3xl animate-float pointer-events-none" />
-            <div className="absolute bottom-[10%] right-[15%] w-64 h-64 bg-violet-500/5 rounded-full blur-3xl animate-morph pointer-events-none" />
-            <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-cyan-500/3 rounded-full blur-3xl pointer-events-none" />
-            {/* South India outline hint */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
-              <svg viewBox="0 0 400 400" className="w-full h-full max-w-md max-h-md" fill="none" stroke="rgba(245,158,11,0.3)" strokeWidth="0.5">
-                <path d="M120,80 Q180,60 220,90 Q260,70 300,100 Q340,130 320,180 Q300,220 330,260 Q310,300 270,310 Q240,340 200,330 Q160,350 130,310 Q100,280 90,240 Q70,200 80,160 Q90,120 120,80Z" />
-              </svg>
-            </div>
-            {/* State markers */}
-            {MAP_STATES.map((state) => (
-              <Link key={state.slug} href={`/destinations/${state.slug}`} className="state-marker" style={{ top: state.top, left: state.left }}>
-                <div className="marker-dot" style={{ backgroundColor: state.color }}>
-                  <div className="marker-pulse" style={{ borderColor: state.color }} />
-                  <div className="marker-pulse" style={{ borderColor: state.color }} />
-                </div>
-                <div className="marker-label">
-                  <p className="text-sm font-bold text-stone-100">{state.name}</p>
-                  <p className="text-xs text-stone-400 mt-0.5">{state.places} Top Places</p>
-                </div>
-              </Link>
-            ))}
-            {/* Compass rose */}
-            <div className="absolute top-4 right-4 md:top-6 md:right-6 flex items-center justify-center w-12 h-12 md:w-16 md:h-16 rounded-full border border-white/10 bg-neutral-900/60 backdrop-blur-sm pointer-events-none">
-              <Compass size={20} className="md:w-6 md:h-6 text-amber-400/60" />
-            </div>
+          <div className="reveal stagger-2">
+            <IndiaMap />
           </div>
         </div>
       </section>

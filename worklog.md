@@ -1890,3 +1890,28 @@ Fix "refused to connect" errors by creating a stable production deployment with 
 - **HTML size**: 494KB (homepage), full SEO metadata included
 - **Caddy proxy**: Status 200, serves real content (no more placeholder)
 - **Cron job**: Job ID 62161, restarts every 5 minutes
+
+---
+Task ID: 1
+Agent: Main Agent
+Task: Add unique photos for all 130 destinations and build interactive India map
+
+Work Log:
+- Audited all 130 places in places-data.ts for image references
+- Found 19 places using generic state covers (karnataka-cover.jpg, etc.)
+- Found 26+ places sharing the same image file with other places
+- Generated 30+ unique AI photos for places that were sharing images
+- Updated all 44 image references in places-data.ts to use unique images
+- Verified all 130 places now have 100% unique images
+- Built interactive India map component (src/components/IndiaMap.tsx) using react-leaflet
+- Map features: dark theme tiles, emoji markers color-coded by state, click-to-view details panel with photo, state filter buttons, fullscreen mode, legend
+- Replaced decorative SVG map in homepage with real Leaflet interactive map
+- Used dynamic import (ssr: false) for Leaflet to avoid SSR issues
+- Build successful, server running on port 3000
+
+Stage Summary:
+- All 130 destinations now have unique photos (0 shared images)
+- 30+ new AI-generated images created in /public/
+- Interactive Leaflet map of South India with all destinations displayed as emoji markers
+- Map includes: state filtering, photo detail panel, fullscreen, dark theme, color-coded by state
+- Server running at http://127.0.0.1:3000/ - status 200 OK
