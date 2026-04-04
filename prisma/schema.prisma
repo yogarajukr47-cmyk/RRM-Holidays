@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  phone         String?
+  password      String?
+  role          String    @default("user") // "user" or "admin"
+  avatar        String?
+  isVerified    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  bookings      Booking[]
+  enquiries     Enquiry[]
+  reviews       Review[]
+}
+
+model Booking {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  destination   String
+  travelDate    String?
+  travellers    String?
+  vehicleType   String?
+  name          String?
+  phone         String?
+  notes         String?
+  status        String    @default("pending") // pending, confirmed, completed, cancelled
+  totalPrice    Float?
+  adminNotes    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Enquiry {
+  id            String    @id @default(cuid())
+  userId        String?
+  user          User?     @relation(fields: [userId], references: [id])
+  name          String
+  email         String?
+  phone         String?
+  destination   String?
+  travelDate    String?
+  travellers    String?
+  message       String?
+  status        String    @default("new") // new, read, replied, closed
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Review {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  trip          String
+  rating        Int
+  quote         String
+  name          String
+  isApproved    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
