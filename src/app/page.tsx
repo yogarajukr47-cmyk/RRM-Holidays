@@ -7,10 +7,10 @@ import { useSession, signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import {
   Menu, X, Phone, Mail, MapPin, Clock, ChevronDown, Star, Search, Users, Calendar,
-  Shield, Headphones, Route, Hotel, Car, ChevronUp, MessageCircle, Instagram, Youtube,
-  ArrowRight, Award, Heart, Compass, Sparkles, Globe, Send, Bot, Plane, CheckCircle2,
-  ChevronLeft, ChevronRight, Camera, Moon, Sun, Zap, MapPinned, Languages, UserCheck,
-  ThumbsUp, TrendingUp, Navigation, BarChart3, Brain, Eye, Lightbulb, Ticket, MessageSquare,
+  Shield, Headphones, Route, Car, ChevronUp, MessageCircle, Instagram, Youtube,
+  ArrowRight, Award, Compass, Sparkles, Globe, Send, Bot, Plane, CheckCircle2,
+  ChevronLeft, ChevronRight, Camera, Moon, Sun, MapPinned, UserCheck,
+  ThumbsUp, TrendingUp, Navigation, BarChart3,
 } from 'lucide-react';
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle,
@@ -23,7 +23,7 @@ import dynamic from 'next/dynamic';
 
 const IndiaMap = dynamic(() => import('@/components/IndiaMap'), { ssr: false });
 
-/* ═══════════════════════════ DATA CONSTANTS ═══════════════════════════ */
+/* ═════════════════════════════ DATA CONSTANTS ═══════════════════════════ */
 
 const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -45,33 +45,24 @@ const STATE_CARDS = [
 ];
 
 const VEHICLES = [
-  { id: 1, slug: 'toyota-etios', type: 'Sedan', model: 'Toyota Etios', img: '/sedan-etios.jpg', seats: '4 Seaters', badge: null, badgeColor: '', features: ['AC', 'Music System', 'Comfortable Seats', 'Boot Space'], desc: 'Perfect for small family trips and city tours' },
-  { id: 2, slug: 'maruti-swift-dzire', type: 'Sedan', model: 'Maruti Swift Dzire', img: '/swift-dzire.jpg', seats: '4 Seaters', badge: 'Popular', badgeColor: 'bg-amber-500', features: ['AC', 'Music System', 'Comfortable Seats', 'Fuel Efficient'], desc: 'Compact sedan ideal for city rides and short trips' },
-  { id: 3, slug: 'toyota-innova', type: 'MUV', model: 'Toyota Innova', img: '/innova-muv.jpg', seats: '7 Seaters', badge: null, badgeColor: '', features: ['Spacious', 'AC', 'Music System', 'Luggage Space'], desc: 'Ideal for family vacations and group travel' },
-  { id: 4, slug: 'innova-crysta', type: 'Premium MUV', model: 'Innova Crysta', img: '/innova-crysta.jpg', seats: '7 Seaters', badge: 'Premium', badgeColor: 'bg-violet-500', features: ['Premium AC', 'Luxury Seats', 'Entertainment System', 'Captain Seats'], desc: 'Premium comfort for luxury travel experiences' },
-  { id: 5, slug: 'force-tempo-traveller', type: 'Tempo Traveller', model: 'Force Tempo Traveller', img: '/tempo-traveller.jpg', seats: '12 Seaters', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Best for medium groups, corporate trips and family outings' },
-  { id: 6, slug: '21-seater-mini-bus', type: 'Mini Bus', model: '21 Seater Mini Bus', img: '/mini-bus.jpg', seats: '21 Seaters', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Best for large groups, weddings and corporate events' },
-  { id: 7, slug: '25-seater-bus', type: 'Bus', model: '25 Seater Bus', img: '/bus-25seater.jpg', seats: '25 Seaters', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'PA System'], desc: 'Ideal for large groups, school trips and corporate outings' },
-  { id: 8, slug: '33-seater-bus', type: 'Bus', model: '33 Seater Bus', img: '/bus-33seater.jpg', seats: '33 Seaters', badge: null, badgeColor: '', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System'], desc: 'Spacious bus for pilgrimage tours and large group travel' },
-  { id: 9, slug: '50-seater-luxury-coach', type: 'Luxury Bus', model: '50 Seater Luxury Coach', img: '/bus-50seater.jpg', seats: '50 Seaters', badge: 'Luxury', badgeColor: 'bg-cyan-500', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System', 'WiFi'], desc: 'Luxury Volvo coach for very large groups, pilgrimages & tours' },
-  { id: 10, slug: 'force-urbania-10', type: 'Tempo Traveller', model: 'Force Urbania 10 Seater', img: '/urbania-10.jpg', seats: '10 Seaters', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Compact yet spacious 10-seater Force Urbania for medium groups' },
-  { id: 11, slug: 'force-urbania-13', type: 'Tempo Traveller', model: 'Force Urbania 13 Seater', img: '/urbania-13.jpg', seats: '13 Seaters', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Versatile 13-seater Force Urbania for family trips & temple tours' },
-  { id: 12, slug: 'force-urbania-16', type: 'Tempo Traveller', model: 'Force Urbania 16 Seater', img: '/urbania-16.jpg', seats: '16 Seaters', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Extra Luggage'], desc: 'Largest Force Urbania 16 seater for large group tours' },
+  { id: 1, slug: 'toyota-etios', type: 'Sedan', model: 'Toyota Etios', img: '/sedan-etios.jpg', seats: '4 Seaters', badge: null, badgeColor: '', features: ['AC', 'Music System', 'Comfortable Seats', 'Boot Space'], desc: 'Perfect for small family trips and city tours', price: 14 },
+  { id: 2, slug: 'maruti-swift-dzire', type: 'Sedan', model: 'Maruti Swift Dzire', img: '/swift-dzire.jpg', seats: '4 Seaters', badge: 'Popular', badgeColor: 'bg-amber-500', features: ['AC', 'Music System', 'Comfortable Seats', 'Fuel Efficient'], desc: 'Compact sedan ideal for city rides and short trips', price: 13 },
+  { id: 3, slug: 'toyota-innova', type: 'MUV', model: 'Toyota Innova', img: '/innova-muv.jpg', seats: '7 Seaters', badge: null, badgeColor: '', features: ['Spacious', 'AC', 'Music System', 'Luggage Space'], desc: 'Ideal for family vacations and group travel', price: 18 },
+  { id: 4, slug: 'innova-crysta', type: 'Premium MUV', model: 'Innova Crysta', img: '/innova-crysta.jpg', seats: '7 Seaters', badge: 'Premium', badgeColor: 'bg-violet-500', features: ['Premium AC', 'Luxury Seats', 'Entertainment System', 'Captain Seats'], desc: 'Premium comfort for luxury travel experiences', price: 22 },
+  { id: 5, slug: 'force-tempo-traveller', type: 'Tempo Traveller', model: 'Force Tempo Traveller', img: '/tempo-traveller.jpg', seats: '12 Seaters', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Best for medium groups, corporate trips and family outings', price: 24 },
+  { id: 6, slug: '21-seater-mini-bus', type: 'Mini Bus', model: '21 Seater Mini Bus', img: '/mini-bus.jpg', seats: '21 Seaters', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Best for large groups, weddings and corporate events', price: 26 },
+  { id: 7, slug: '25-seater-bus', type: 'Bus', model: '25 Seater Bus', img: '/bus-25seater.jpg', seats: '25 Seaters', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'PA System'], desc: 'Ideal for large groups, school trips and corporate outings', price: 28 },
+  { id: 8, slug: '33-seater-bus', type: 'Bus', model: '33 Seater Bus', img: '/bus-33seater.jpg', seats: '33 Seaters', badge: null, badgeColor: '', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System'], desc: 'Spacious bus for pilgrimage tours and large group travel', price: 32 },
+  { id: 9, slug: '50-seater-luxury-coach', type: 'Luxury Bus', model: '50 Seater Luxury Coach', img: '/bus-50seater.jpg', seats: '50 Seaters', badge: 'Luxury', badgeColor: 'bg-cyan-500', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System', 'WiFi'], desc: 'Luxury Volvo coach for very large groups, pilgrimages & tours', price: 45 },
+  { id: 10, slug: 'force-urbania-10', type: 'Tempo Traveller', model: 'Force Urbania 10 Seater', img: '/urbania-10.jpg', seats: '10 Seaters', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Compact yet spacious 10-seater Force Urbania for medium groups', price: 26 },
+  { id: 11, slug: 'force-urbania-13', type: 'Tempo Traveller', model: 'Force Urbania 13 Seater', img: '/urbania-13.jpg', seats: '13 Seaters', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Versatile 13-seater Force Urbania for family trips & temple tours', price: 28 },
+  { id: 12, slug: 'force-urbania-16', type: 'Tempo Traveller', model: 'Force Urbania 16 Seater', img: '/urbania-16.jpg', seats: '16 Seaters', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Extra Luggage'], desc: 'Largest Force Urbania 16 seater for large group tours', price: 30 },
 ];
 
 const VEHICLE_VIEWS: Record<number, string[]> = {
-  1: ['/sedan-etios.jpg'],
-  2: ['/swift-dzire.jpg'],
-  3: ['/innova-muv.jpg'],
-  4: ['/innova-crysta.jpg'],
-  5: ['/tempo-traveller.jpg'],
-  6: ['/mini-bus.jpg'],
-  7: ['/bus-25seater.jpg'],
-  8: ['/bus-33seater.jpg'],
-  9: ['/bus-50seater.jpg'],
-  10: ['/urbania-10.jpg'],
-  11: ['/urbania-13.jpg'],
-  12: ['/urbania-16.jpg'],
+  1: ['/sedan-etios.jpg'], 2: ['/swift-dzire.jpg'], 3: ['/innova-muv.jpg'], 4: ['/innova-crysta.jpg'],
+  5: ['/tempo-traveller.jpg'], 6: ['/mini-bus.jpg'], 7: ['/bus-25seater.jpg'], 8: ['/bus-33seater.jpg'],
+  9: ['/bus-50seater.jpg'], 10: ['/urbania-10.jpg'], 11: ['/urbania-13.jpg'], 12: ['/urbania-16.jpg'],
 };
 
 const TESTIMONIALS = [
@@ -138,21 +129,13 @@ const GALLERY_PHOTOS = [
 
 const LANGUAGES = [
   { code: 'en', label: 'English', native: 'EN' },
+  { code: 'kn', label: 'ಕನ್ನ್ಡ (Kannada)', native: 'KN' },
   { code: 'hi', label: 'हिंदी (Hindi)', native: 'HI' },
-  { code: 'kn', label: 'ಕನ್ನಡ (Kannada)', native: 'KN' },
   { code: 'ta', label: 'தமிழ் (Tamil)', native: 'TA' },
   { code: 'ml', label: 'മലയാളം (Malayalam)', native: 'ML' },
 ];
 
-const VEHICLE_TYPES = ['All', 'Sedan', 'MUV', 'Premium MUV', 'Tempo Traveller', 'Mini Bus', 'Bus', 'Luxury Bus'];
-
-const TRIP_STATES = ['Karnataka', 'Kerala', 'Tamil Nadu', 'Goa', 'Andhra Pradesh'];
-const TRIP_EXPERIENCES = ['Wildlife', 'Beaches', 'Heritage', 'Hill Stations', 'Temples', 'Adventure'];
-const TRIP_DURATIONS = ['1-2 Days', '3-5 Days', '5-7 Days', '7+ Days'];
-const TRIP_GROUPS = ['Solo', 'Couple', 'Family (3-5)', 'Group (6-15)', 'Large (15+)'];
-
 const GALLERY_FILTERS = ['All', 'Temples', 'Beaches', 'Hills', 'Heritage'];
-
 const WHATSAPP_NUMBER = '919108597154';
 
 const DESTINATIONS = [
@@ -175,13 +158,19 @@ const AI_TOOLS = [
 
 const ALL_MARKERS_COUNT = 130;
 
-/* ═══════════════════════════ MAIN COMPONENT ═══════════════════════════ */
+const FLOATING_ICONS = [
+  { icon: Instagram, label: 'Instagram', href: 'https://instagram.com/rrmholidays', bg: 'bg-gradient-to-br from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400', shadow: 'shadow-pink-500/30' },
+  { icon: Phone, label: 'Call Us', href: 'tel:+919108597154', bg: 'bg-orange-500 hover:bg-orange-400', shadow: 'shadow-orange-500/30' },
+  { icon: Youtube, label: 'YouTube', href: 'https://youtube.com/@rrmholidays', bg: 'bg-red-600 hover:bg-red-500', shadow: 'shadow-red-500/30' },
+  { icon: Car, label: 'Our Fleet', href: '/vehicles', bg: 'bg-violet-600 hover:bg-violet-500', shadow: 'shadow-violet-500/30' },
+];
+
+/* ═════════════════════════════ MAIN COMPONENT ═══════════════════════════ */
 
 export default function Home() {
   const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
 
-  /* ── Core state ── */
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
@@ -192,14 +181,12 @@ export default function Home() {
   const [toasts, setToasts] = useState<{ id: number; msg: string }[]>([]);
   const toastIdRef = useRef(0);
 
-  /* ── Hero refs ── */
   const videoRef = useRef<HTMLVideoElement>(null);
   const fallbackRef = useRef<HTMLDivElement>(null);
   const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
 
-  /* ── Typing effect ── */
   const [phraseIdx, setPhraseIdx] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -218,19 +205,20 @@ export default function Home() {
     return () => clearTimeout(timeout);
   }, [typedText, isDeleting, phraseIdx]);
 
-  /* ── Search ── */
   const [searchQuery, setSearchQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('All');
   const searchRef = useRef<HTMLDivElement>(null);
 
-  const filteredSearch = searchQuery.length > 0
-    ? SEARCH_DATA.filter((item) => {
-        const mq = item.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const mf = activeFilter === 'All' || item.state === activeFilter || item.type === activeFilter;
-        return mq && mf;
-      }).slice(0, 8)
-    : [];
+   /* ✅ CHANGE 1 (Step 4): filteredSearch now shows all items when searchQuery is empty */
+  const FILTER_TYPE_MAP: Record<string, string> = { 'Places': 'Place', 'Vehicles': 'Vehicle', 'Experiences': 'Experience' };
+  const resolvedFilter = FILTER_TYPE_MAP[activeFilter] || activeFilter;
+
+  const filteredSearch = SEARCH_DATA.filter((item) => {
+    const mq = searchQuery.length > 0 ? item.name.toLowerCase().includes(searchQuery.toLowerCase()) : true;
+    const mf = activeFilter === 'All' || item.type === resolvedFilter || item.state === activeFilter;
+    return mq && mf;
+  }).slice(0, 8);
 
   useEffect(() => {
     const h = (e: MouseEvent) => { if (searchRef.current && !searchRef.current.contains(e.target as Node)) setSearchOpen(false); };
@@ -238,14 +226,12 @@ export default function Home() {
     return () => document.removeEventListener('mousedown', h);
   }, []);
 
-  /* ── Toast ── */
   const showToast = useCallback((msg: string) => {
     const id = ++toastIdRef.current;
     setToasts((p) => [...p, { id, msg }]);
     setTimeout(() => setToasts((p) => p.filter((t) => t.id !== id)), 3500);
   }, []);
 
-  /* ── Booking form ── */
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bDest, setBDest] = useState('');
   const [bDate, setBDate] = useState('');
@@ -262,7 +248,6 @@ export default function Home() {
     showToast('✅ Opening WhatsApp!');
   };
 
-  /* ── Scroll handlers ── */
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
@@ -274,14 +259,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* ── Intersection observer for reveals ── */
   useEffect(() => {
     const obs = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('active'); }), { threshold: 0.12 });
     document.querySelectorAll('.reveal, .slide-in-left, .slide-in-right, .scale-in').forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   });
 
-  /* ── Active section tracking ── */
   useEffect(() => {
     const secs = NAV_LINKS.filter((l) => l.href.startsWith('#')).map((l) => l.href.replace('#', ''));
     const obs = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); }), { threshold: 0.25 });
@@ -289,31 +272,6 @@ export default function Home() {
     return () => obs.disconnect();
   }, []);
 
-  /* ── Stats counter ── */
-  const [counters, setCounters] = useState({ travellers: 0, vehicles: 0, states: 0, years: 0 });
-  const statsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        const t = { travellers: 5000, vehicles: 150, states: 6, years: 9 };
-        let step = 0;
-        const timer = setInterval(() => {
-          step++;
-          const p = 1 - Math.pow(1 - step / 60, 3);
-          setCounters({ travellers: Math.round(t.travellers * p), vehicles: Math.round(t.vehicles * p), states: Math.round(t.states * p), years: Math.round(t.years * p) });
-          if (step >= 60) clearInterval(timer);
-        }, 33);
-        obs.disconnect();
-      }
-    }, { threshold: 0.3 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  /* ── Contact form ── */
   const [cName, setCName] = useState('');
   const [cPhone, setCPhone] = useState('');
   const [cEmail, setEmail] = useState('');
@@ -329,7 +287,6 @@ export default function Home() {
     showToast('✅ Opening WhatsApp!');
   };
 
-  /* ── Testimonials carousel ── */
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
   const [emblaSelected, setEmblaSelected] = useState(0);
   const [emblaPaused, setEmblaPaused] = useState(false);
@@ -339,18 +296,13 @@ export default function Home() {
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  /* ── Live ticker ── */
   const [liveMsg, setLiveMsg] = useState(0);
   useEffect(() => { const i = setInterval(() => setLiveMsg((p) => (p + 1) % LIVE_MESSAGES.length), 5000); return () => clearInterval(i); }, []);
 
-  /* ── Language selector ── */
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState('en');
-
-  /* ── Mount ── */
   useEffect(() => { setMounted(true); }, []);
 
-  /* ── Inactivity popup ── */
   const [showInactivity, setShowInactivity] = useState(false);
   const inactivityRef = useRef(false);
   const inactivityTimer = useRef<NodeJS.Timeout | null>(null);
@@ -366,7 +318,6 @@ export default function Home() {
     return () => { ['mousemove', 'scroll', 'keydown', 'click', 'touchstart'].forEach((e) => window.removeEventListener(e, reset)); if (inactivityTimer.current) clearTimeout(inactivityTimer.current); };
   }, []);
 
-  /* ── 3D tilt ── */
   const handleTilt = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const el = e.currentTarget; const rect = el.getBoundingClientRect();
     const x = e.clientX - rect.left; const y = e.clientY - rect.top;
@@ -377,7 +328,6 @@ export default function Home() {
   }, []);
   const handleTiltReset = useCallback((e: React.MouseEvent<HTMLDivElement>) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }, []);
 
-  /* ── Cursor glow ── */
   useEffect(() => {
     const el = cursorGlowRef.current; if (!el) return;
     let raf: number; let mx = -500; let my = -500;
@@ -387,7 +337,6 @@ export default function Home() {
     return () => { window.removeEventListener('mousemove', mm); cancelAnimationFrame(raf); };
   }, []);
 
-  /* ── Ripple effect ── */
   useEffect(() => {
     const createRipple = (e: MouseEvent) => {
       const btn = e.currentTarget as HTMLElement; const rect = btn.getBoundingClientRect();
@@ -403,32 +352,27 @@ export default function Home() {
     return () => { document.querySelectorAll('.ripple-btn').forEach((btn) => btn.removeEventListener('click', createRipple)); obs.disconnect(); };
   }, []);
 
-  /* ── Lang close on outside click ── */
   useEffect(() => { const h = (e: MouseEvent) => { if (!(e.target as HTMLElement).closest('[data-lang]')) setLangOpen(false); }; document.addEventListener('mousedown', h); return () => document.removeEventListener('mousedown', h); }, []);
 
   const handleLangChange = (code: string) => { setSelectedLang(code); setLangOpen(false); showToast(`🌐 Language: ${LANGUAGES.find((l) => l.code === code)?.label}`); };
 
-  /* ── Trip planner ── */
   const [tripStep, setTripStep] = useState(0);
   const [tripState, setTripState] = useState('');
   const [tripExp, setTripExp] = useState('');
   const [tripDur, setTripDur] = useState('');
   const [tripGrp, setTripGrp] = useState('');
 
-  /* ── Vehicles ── */
-  const [vFilter, setVFilter] = useState('All');
   const [selVehicle, setSelVehicle] = useState<(typeof VEHICLES)[0] | null>(null);
   const [vSheetOpen, setVSheetOpen] = useState(false);
   const [vImgIdx, setVImgIdx] = useState(0);
-  const fVehicles = vFilter === 'All' ? VEHICLES : VEHICLES.filter((v) => v.type === vFilter);
-  const openVSheet = (v: (typeof VEHICLES)[0]) => { setSelVehicle(v); setVImgIdx(0); setVSheetOpen(true); };
 
-  /* ── Gallery ── */
   const [gFilter, setGFilter] = useState('All');
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
   const fGallery = gFilter === 'All' ? GALLERY_PHOTOS : GALLERY_PHOTOS.filter((p) => p.category === gFilter);
 
-  /* ── Particle canvas ── */
+  const [floatingVisible, setFloatingVisible] = useState(false);
+  useEffect(() => { const onScroll = () => { setFloatingVisible(window.scrollY > 400); }; window.addEventListener('scroll', onScroll, { passive: true }); return () => window.removeEventListener('scroll', onScroll); }, []);
+
   useEffect(() => {
     const c = particleCanvasRef.current; if (!c) return;
     const ctx = c.getContext('2d'); if (!ctx) return;
@@ -442,7 +386,6 @@ export default function Home() {
     return () => { cancelAnimationFrame(aid); window.removeEventListener('resize', resize); };
   }, []);
 
-  /* ── Magnetic CTA ── */
   useEffect(() => {
     const btn = ctaRef.current; if (!btn) return;
     const mm = (e: MouseEvent) => { const r = btn.getBoundingClientRect(); btn.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.15}px, ${(e.clientY - r.top - r.height / 2) * 0.15}px)`; };
@@ -451,27 +394,32 @@ export default function Home() {
     return () => { btn.removeEventListener('mousemove', mm); btn.removeEventListener('mouseleave', ml); };
   }, []);
 
-  /* ── Strip Chrome extension attributes (hydration fix) ── */
-  useEffect(() => {
-    document.querySelectorAll('[__gchrome_uniqueid]').forEach((el) => {
-      el.removeAttribute('__gchrome_uniqueid');
-    });
-  }, []);
-
-  /* ═══════════════════════════ RENDER ═══════════════════════════ */
+  /* ═════════════════════════════ RENDER ═══════════════════════════ */
   return (
     <div className="pb-mobile-bar">
-      {/* 1. CURSOR GLOW */}
       <div ref={cursorGlowRef} className="cursor-glow" />
-
-      {/* 2. SCROLL PROGRESS */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-      {/* 3. NAVIGATION */}
+      {/* FLOATING SOCIAL SIDEBAR */}
+      <div className={`fixed left-3 sm:left-4 top-1/2 -translate-y-1/2 z-[55] flex flex-col gap-2.5 transition-all duration-500 ${floatingVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8 pointer-events-none'}`}>
+        {FLOATING_ICONS.map((item, idx) => (
+          <a key={item.label} href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="group relative">
+            <div className={`w-11 h-11 sm:w-12 sm:h-12 ${item.bg} rounded-xl flex items-center justify-center text-white shadow-lg ${item.shadow} transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:rounded-2xl`}>
+              <item.icon size={20} className="sm:w-[22px] sm:h-[22px]" />
+            </div>
+            <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-neutral-900/95 backdrop-blur-xl border border-white/10 shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none -translate-x-2 group-hover:translate-x-0">
+              <span className="text-xs font-semibold text-stone-200">{item.label}</span>
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-neutral-900/95 border-l border-b border-white/10 rotate-45" />
+            </div>
+          </a>
+        ))}
+      </div>
+
+      {/* NAVIGATION */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass py-2' : 'py-4 bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           <a href="#home" className="flex items-center gap-2 group">
-            <Image src="/logo.png" alt="RRM Holidays" width={40} height={40} className="h-10 w-auto rounded-lg object-contain" priority />
+            <Image src="/logo1.png" alt="RRM Holidays" width={40} height={40} className="h-10 w-auto rounded-lg object-contain" priority />
             <span className="text-lg font-bold tracking-tight text-stone-100">RRM <span className="text-amber-400">Holidays</span></span>
           </a>
           <div className="hidden lg:flex items-center gap-5">
@@ -517,7 +465,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 4. MOBILE MENU */}
+      {/* MOBILE MENU */}
       <div className={`mobile-menu fixed inset-0 z-[60] ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
         <div className="absolute right-0 top-0 bottom-0 w-72 bg-neutral-900/95 backdrop-blur-xl border-l border-white/5 p-6 flex flex-col overflow-y-auto">
@@ -528,6 +476,14 @@ export default function Home() {
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)} className="py-3 px-4 rounded-lg text-stone-300 hover:text-white hover:bg-white/5 transition-all text-sm font-medium">{link.label}</a>
+            ))}
+          </div>
+          <div className="flex flex-col gap-2.5 mb-4 mt-4">
+            {FLOATING_ICONS.map((item) => (
+              <a key={item.label} href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={() => { if (!item.href.startsWith('http')) setMobileMenuOpen(false); }} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all">
+                <div className={`w-10 h-10 rounded-lg ${item.bg} flex items-center justify-center text-white`}><item.icon size={18} /></div>
+                <span className="text-sm font-medium text-stone-300">{item.label}</span>
+              </a>
             ))}
           </div>
           <div className="mt-auto space-y-2">
@@ -553,7 +509,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 5. HERO SECTION */}
+      {/* HERO SECTION */}
       <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="hero-video">
           <video ref={videoRef} autoPlay muted loop playsInline onLoadedData={() => { if (videoRef.current) videoRef.current.classList.add('loaded'); if (fallbackRef.current) fallbackRef.current.classList.add('hidden'); }} className="object-cover w-full h-full">
@@ -564,14 +520,13 @@ export default function Home() {
           <Image src="/hero-mysuru.jpg" alt="Mysuru Palace" fill className="object-cover object-center animate-ken-burns" priority sizes="100vw" />
         </div>
         <div className="hero-overlay absolute inset-0" />
-        <canvas ref={particleCanvasRef} className="hero-particles" />
+        <canvas ref={particleCanvasRef} className="hero-particles" suppressHydrationWarning />
         <div className="absolute top-[20%] left-[10%] float-icon animate-float-icon-1"><Plane size={32} className="text-amber-400/20" /></div>
         <div className="absolute top-[35%] right-[15%] float-icon animate-float-icon-2"><Car size={28} className="text-amber-400/15" /></div>
         <div className="absolute bottom-[40%] left-[20%] float-icon animate-float-icon-3"><MapPin size={26} className="text-amber-400/15" /></div>
         <div className="absolute top-[60%] right-[25%] float-icon animate-float-icon-1"><Compass size={24} className="text-amber-400/10" /></div>
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl animate-float" />
         <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-stone-500/5 rounded-full blur-3xl animate-morph" />
-
         <div ref={heroContentRef} className="hero-parallax-content relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center pt-24 pb-32">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-stone-300 mb-6">
             <Sparkles size={14} className="text-amber-400" /> Based in Mysuru &bull; Serving South India
@@ -589,28 +544,11 @@ export default function Home() {
           <div className="mt-4">
             <a href="#destinations" className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/20 text-stone-300 font-medium text-sm hover:bg-white/5 hover:text-white transition-all ripple-btn">Explore Destinations <ArrowRight size={16} /></a>
           </div>
-
-          {/* Stats counter in hero */}
-          <div ref={statsRef} className="flex flex-wrap justify-center gap-8 md:gap-16 mt-14">
-            {[
-              { value: counters.travellers, suffix: '+', label: 'Happy Travellers' },
-              { value: counters.vehicles, suffix: '+', label: 'Vehicles & Fleet' },
-              { value: counters.states, suffix: '', label: 'States Covered' },
-              { value: counters.years, suffix: '+', label: 'Years of Trust' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="stat-number text-2xl md:text-3xl font-extrabold">{stat.value.toLocaleString()}{stat.suffix}</div>
-                <div className="text-stone-500 text-xs md:text-sm mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Trust badges */}
-          <div suppressHydrationWarning className="flex flex-wrap justify-center gap-3 md:gap-6 mt-8 reveal">
+           <div suppressHydrationWarning className="flex flex-wrap justify-center gap-3 md:gap-6 mt-8 reveal">
             {[
               { icon: <Shield size={18} />, text: 'Verified Partner', color: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' },
               { icon: <Star size={18} />, text: '4.9★ Google Rating', color: 'bg-amber-500/10 text-amber-400 border-amber-500/20' },
-              { icon: <Users size={18} />, text: '5000+ Customers', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
+              { icon: <Users size={18} />, text: '100+ Customers', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
               { icon: <Clock size={18} />, text: '24/7 Support', color: 'bg-violet-500/10 text-violet-400 border-violet-500/20' },
             ].map((badge) => (
               <div key={badge.text} className={`trust-badge inline-flex items-center gap-1.5 px-3 py-2 md:px-4 md:py-2.5 rounded-full border text-[10px] md:text-xs font-semibold ${badge.color}`}>
@@ -618,13 +556,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          {/* Live ticker */}
           <div className="flex items-center justify-center gap-2 mt-6 reveal">
             <span className="pulse-dot w-2 h-2 rounded-full bg-green-500" />
             <p className="text-xs text-stone-500">{LIVE_MESSAGES[liveMsg]}</p>
           </div>
-
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
             <span className="text-stone-500 text-xs">Scroll to Explore</span><ChevronDown size={18} className="text-stone-500" />
           </div>
@@ -633,7 +568,7 @@ export default function Home() {
 
       <div className="section-separator" />
 
-      {/* 6. SMART SEARCH & DISCOVERY */}
+            {/* SMART SEARCH */}
       <section id="search" className="relative py-20 md:py-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -662,12 +597,11 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap justify-center gap-2 mt-3">
               {['All', 'Places', 'Vehicles', 'Experiences'].map((f) => (
-                <button key={f} onClick={() => setActiveFilter(f)} className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${activeFilter === f ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300' : 'bg-white/5 border border-white/10 text-stone-400 hover:text-stone-200'}`}>{f}</button>
+                <button key={f} onClick={() => { setActiveFilter(f); setSearchOpen(true); }} className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${activeFilter === f ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300' : 'bg-white/5 border border-white/10 text-stone-400 hover:text-stone-200'}`}>{f}</button>
               ))}
             </div>
           </div>
-          {/* Quick result grid when not searching */}
-          {searchQuery.length === 0 && (
+          {searchQuery.length === 0 && activeFilter === 'All' && (
             <div className="reveal stagger-3 grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-4xl mx-auto">
               {SEARCH_DATA.slice(0, 8).map((item, idx) => (
                 <button key={idx} onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi! I'm interested in ${item.name}. Please share details.`)}`, '_blank')} className="group rounded-xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-3d text-left">
@@ -685,12 +619,33 @@ export default function Home() {
               ))}
             </div>
           )}
+          {activeFilter !== 'All' && searchQuery.length === 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-4xl mx-auto">
+              {filteredSearch.map((item, idx) => (
+                <button key={idx} onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi! I'm interested in ${item.name}. Please share details.`)}`, '_blank')} className="group rounded-xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-3d text-left">
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <Image src={item.img} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width:640px) 50vw, (max-width:1024px) 25vw, 20vw" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-white/10 text-white/80 backdrop-blur-sm">{item.type}</span>
+                    <span className="absolute bottom-2 left-2 text-lg">{item.icon}</span>
+                  </div>
+                  <div className="p-3">
+                    <h4 className="text-sm font-semibold text-white truncate">{item.name}</h4>
+                    {item.state && <p className="text-xs text-stone-500 mt-0.5">{item.state}</p>}
+                  </div>
+                </button>
+              ))}
+              {filteredSearch.length === 0 && (
+                <div className="col-span-full text-center py-12">
+                  <p className="text-stone-500 text-sm">No results found for &quot;{activeFilter}&quot;</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
-      <div className="section-separator" />
-
-      {/* 7. ABOUT SECTION */}
+      {/* ABOUT */}
       <section id="about" className="relative py-20 md:py-32">
         <div className="grid-pattern absolute inset-0 opacity-50" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -734,7 +689,7 @@ export default function Home() {
 
       <div className="section-separator" />
 
-      {/* 8. DESTINATIONS — Premium Cards */}
+      {/* DESTINATIONS */}
       <section id="destinations" className="relative py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -777,15 +732,13 @@ export default function Home() {
             <h2 className="reveal stagger-1 text-3xl md:text-4xl font-extrabold mt-3 mb-4">Explore South India <span className="text-gradient-warm">on the Map</span></h2>
             <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">{ALL_MARKERS_COUNT} destinations across 5 states — click any marker to discover and explore.</p>
           </div>
-          <div className="reveal stagger-2">
-            <IndiaMap />
-          </div>
+          <div className="reveal stagger-2"><IndiaMap /></div>
         </div>
       </section>
 
       <div className="section-separator" />
 
-      {/* 9. BUILD YOUR TRIP */}
+      {/* TRIP PLANNER */}
       <section id="trip-planner" className="relative py-20 md:py-32 overflow-hidden">
         <div className="grid-pattern absolute inset-0 opacity-30" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6">
@@ -794,7 +747,6 @@ export default function Home() {
             <h2 className="reveal stagger-1 text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-4">Build Your <span className="text-gradient-warm">Dream Trip</span></h2>
             <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">Choose your preferences and we&apos;ll create a custom itinerary via WhatsApp.</p>
           </div>
-
           <div className="reveal stagger-2 flex items-center justify-center gap-2 mb-10">
             {[0, 1, 2, 3].map((step) => (
               <React.Fragment key={step}>
@@ -805,13 +757,12 @@ export default function Home() {
               </React.Fragment>
             ))}
           </div>
-
           <div className="reveal stagger-3 glass rounded-2xl p-6 md:p-8">
             {tripStep === 0 && (
               <div className="animate-scale-in">
                 <h3 className="text-lg font-bold text-stone-200 mb-4">1. Select Your Destination State</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                  {TRIP_STATES.map((s) => (
+                  {['Karnataka', 'Kerala', 'Tamil Nadu', 'Goa', 'Andhra Pradesh'].map((s) => (
                     <button key={s} onClick={() => { setTripState(s); setTripStep(1); }} className={`p-3 rounded-xl border text-sm font-medium transition-all ripple-btn ${tripState === s ? 'bg-amber-500/15 border-amber-500/40 text-amber-300' : 'bg-neutral-900/60 border-white/10 text-stone-300 hover:border-amber-500/30'}`}>{s}</button>
                   ))}
                 </div>
@@ -821,7 +772,7 @@ export default function Home() {
               <div className="animate-scale-in">
                 <h3 className="text-lg font-bold text-stone-200 mb-4">2. What Experience Are You Looking For?</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {TRIP_EXPERIENCES.map((e) => (
+                  {['Wildlife', 'Beaches', 'Heritage', 'Hill Stations', 'Temples', 'Adventure'].map((e) => (
                     <button key={e} onClick={() => { setTripExp(e); setTripStep(2); }} className={`p-3 rounded-xl border text-sm font-medium transition-all ripple-btn ${tripExp === e ? 'bg-amber-500/15 border-amber-500/40 text-amber-300' : 'bg-neutral-900/60 border-white/10 text-stone-300 hover:border-amber-500/30'}`}>{e}</button>
                   ))}
                 </div>
@@ -832,7 +783,7 @@ export default function Home() {
               <div className="animate-scale-in">
                 <h3 className="text-lg font-bold text-stone-200 mb-4">3. How Long Is Your Trip?</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {TRIP_DURATIONS.map((d) => (
+                  {['1-2 Days', '3-5 Days', '5-7 Days', '7+ Days'].map((d) => (
                     <button key={d} onClick={() => { setTripDur(d); setTripStep(3); }} className={`p-3 rounded-xl border text-sm font-medium transition-all ripple-btn ${tripDur === d ? 'bg-amber-500/15 border-amber-500/40 text-amber-300' : 'bg-neutral-900/60 border-white/10 text-stone-300 hover:border-amber-500/30'}`}>{d}</button>
                   ))}
                 </div>
@@ -843,7 +794,7 @@ export default function Home() {
               <div className="animate-scale-in">
                 <h3 className="text-lg font-bold text-stone-200 mb-4">4. What&apos;s Your Group Type?</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                  {TRIP_GROUPS.map((g) => (
+                  {['Solo', 'Couple', 'Family (3-5)', 'Group (6-15)', 'Large (15+)'].map((g) => (
                     <button key={g} onClick={() => { setTripGrp(g); }} className={`p-3 rounded-xl border text-sm font-medium transition-all ripple-btn ${tripGrp === g ? 'bg-amber-500/15 border-amber-500/40 text-amber-300' : 'bg-neutral-900/60 border-white/10 text-stone-300 hover:border-amber-500/30'}`}>{g}</button>
                   ))}
                 </div>
@@ -871,59 +822,38 @@ export default function Home() {
 
       <div className="section-separator" />
 
-      {/* 10. VEHICLE SHOWCASE */}
-      <section id="vehicles" className="relative py-20 md:py-32 overflow-hidden">
-        <div className="grid-pattern absolute inset-0 opacity-30" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <span className="reveal text-amber-400 text-sm font-semibold tracking-wider uppercase">Our Fleet</span>
-            <h2 className="reveal stagger-1 text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-4">Choose Your <span className="text-gradient-warm">Ride</span></h2>
-            <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">From sedans to luxury coaches — the perfect ride for every journey.</p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-2 mb-8 reveal stagger-2">
-            {VEHICLE_TYPES.map((t) => (
-              <button key={t} onClick={() => setVFilter(t)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${vFilter === t ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300' : 'bg-white/5 border border-white/10 text-stone-400 hover:text-stone-200'}`}>{t}</button>
-            ))}
-          </div>
-        </div>
-        <div className="reveal stagger-3 relative w-full overflow-hidden px-4" style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)' }}>
-          <div className="flex animate-marquee-vehicles hover:[animation-play-state:paused]">
-            {[...VEHICLES, ...VEHICLES, ...VEHICLES, ...VEHICLES].map((v, i) => (
-              <button key={`r1-${v.id}-${i}`} onClick={() => openVSheet(v)} className="shrink-0 w-[170px] cursor-pointer group">
-                <div className="relative h-[140px] sm:h-[160px] overflow-hidden rounded-xl vehicle-card-glass">
-                  <Image src={v.img} alt={v.model} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="340px" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  {v.badge && <span className={`absolute top-2 left-2 px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white uppercase tracking-wider ${v.badgeColor}`}>{v.badge}</span>}
-                  <div className="absolute bottom-2 left-3 right-3"><h3 className="text-sm font-bold text-white leading-tight">{v.model}</h3></div>
-                  <div className="vehicle-quick-view"><span className="text-sm font-semibold text-amber-300 flex items-center gap-1">Quick View <Eye size={14} /></span></div>
-                </div>
-                <div className="px-1 py-2 flex items-center justify-center"><span className="text-[11px] font-medium text-amber-400/80 flex items-center gap-1">View Details <ArrowRight size={10} /></span></div>
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="reveal stagger-4 relative w-full overflow-hidden px-4 mt-4" style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)' }}>
-          <div className="flex animate-marquee-vehicles-reverse hover:[animation-play-state:paused]" style={{ animationDirection: 'reverse' }}>
-            {[...VEHICLES.slice().reverse(), ...VEHICLES.slice().reverse(), ...VEHICLES.slice().reverse(), ...VEHICLES.slice().reverse()].map((v, i) => (
-              <button key={`r2-${v.id}-${i}`} onClick={() => openVSheet(v)} className="shrink-0 w-[170px] cursor-pointer group">
-                <div className="relative h-[140px] sm:h-[160px] overflow-hidden rounded-xl vehicle-card-glass">
-                  <Image src={v.img} alt={v.model} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="340px" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  {v.badge && <span className={`absolute top-2 left-2 px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white uppercase tracking-wider ${v.badgeColor}`}>{v.badge}</span>}
-                  <div className="absolute bottom-2 left-3 right-3"><h3 className="text-sm font-bold text-white leading-tight">{v.model}</h3></div>
-                  <div className="vehicle-quick-view"><span className="text-sm font-semibold text-amber-300 flex items-center gap-1">Quick View <Eye size={14} /></span></div>
-                </div>
-                <div className="px-1 py-2 flex items-center justify-center"><span className="text-[11px] font-medium text-amber-400/80 flex items-center gap-1">View Details <ArrowRight size={10} /></span></div>
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="text-center mt-10 reveal stagger-5">
-          <Link href="/vehicles" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-sm hover:from-amber-400 hover:to-amber-500 transition-all shadow-lg shadow-amber-500/20 ripple-btn">View Full Fleet <ArrowRight size={16} /></Link>
-        </div>
-      </section>
+        {/* VEHICLE SHOWCASE */}
+<section id="vehicles" className="relative py-20 md:py-32">
+  <div className="grid-pattern absolute inset-0 opacity-30" />
+  <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
+    <div className="text-center mb-12">
+      <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-xs font-semibold text-amber-400 mb-6">
+        <Car size={14} /> Complete Fleet — 12 Vehicles
+      </div>
+      <h2 className="reveal stagger-1 text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-4">
+        Choose Your Perfect <span className="text-gradient-warm">Ride</span>
+      </h2>
+      <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">
+        Browse our fleet and book instantly. No hidden fees.
+      </p>
+    </div>
+    
 
-      {/* Vehicle Sheet */}
+    {/* BIG VIEW COMPLETE VEHICLE LINK */}
+    <div className="reveal stagger-5 text-center mt-20">
+       <Link 
+         href="/vehicles" 
+         className="inline-flex items-center gap-4 text-3xl md:text-4xl lg:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:via-white hover:to-amber-300 transition-all duration-300 group pb-2 border-b-4 border-transparent hover:border-amber-500/30"
+       >
+         View Complete Vehicle Fleet
+         <ArrowRight size={36} className="text-amber-500 group-hover:translate-x-2 group-hover:text-amber-400 transition-all duration-300" />
+       </Link>
+       <p className="mt-4 text-sm text-stone-500 font-medium">Explore all 12 vehicles including Luxury Coaches & Urbania</p>
+    </div>
+
+  </div>
+</section>
+
       <Sheet open={vSheetOpen} onOpenChange={setVSheetOpen}>
         <SheetContent side="right" className="bg-neutral-950 border-white/10 w-full sm:max-w-lg overflow-y-auto">
           {selVehicle && (
@@ -931,58 +861,27 @@ export default function Home() {
               <SheetHeader><SheetTitle className="text-stone-100">{selVehicle.model}</SheetTitle></SheetHeader>
               <div className="mt-4 space-y-6">
                 <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900">
-                  <Image 
-                    src={(VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img])[vImgIdx % (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length]} 
-                    alt={selVehicle.model} 
-                    fill
-                    className="object-cover transition-transform duration-500"
-                    sizes="(max-width:640px) 100vw, 512px"
-                    loading="lazy"
-                  />
+                  <Image src={(VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img])[vImgIdx % (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length]} alt={selVehicle.model} fill className="object-cover transition-transform duration-500" sizes="(max-width:640px) 100vw, 512px" loading="lazy" />
                   {(VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length > 1 && (
                     <>
-                      <button onClick={() => setVImgIdx(p => p - 1 < 0 ? (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length - 1 : p - 1)} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full glass flex items-center justify-center text-white hover:bg-white/10 transition-all">
-                        <ChevronLeft size={16} />
-                      </button>
-                      <button onClick={() => setVImgIdx(p => (p + 1) % (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length)} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full glass flex items-center justify-center text-white hover:bg-white/10 transition-all">
-                        <ChevronRight size={16} />
-                      </button>
-                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                        {(VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).map((_, i) => (
-                          <button key={i} onClick={() => setVImgIdx(i)} className={`vehicle-slider-dot ${vImgIdx % (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length === i ? 'active' : ''}`} />
-                        ))}
-                      </div>
+                      <button onClick={() => setVImgIdx(p => p - 1 < 0 ? (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length - 1 : p - 1)} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full glass flex items-center justify-center text-white hover:bg-white/10 transition-all"><ChevronLeft size={16} /></button>
+                      <button onClick={() => setVImgIdx(p => (p + 1) % (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length)} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full glass flex items-center justify-center text-white hover:bg-white/10 transition-all"><ChevronRight size={16} /></button>
+                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">{(VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).map((_, i) => (<span key={i} onClick={() => setVImgIdx(i)} className={`vehicle-slider-dot ${vImgIdx % (VEHICLE_VIEWS[selVehicle.id] || [selVehicle.img]).length === i ? 'active' : ''}`}></span>))}</div>
                     </>
                   )}
                   {selVehicle.badge && <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-wider ${selVehicle.badgeColor}`}>{selVehicle.badge}</span>}
                 </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-500/15 text-amber-300 border border-amber-500/30">{selVehicle.type}</span>
-                    <span className="text-sm text-stone-400">{selVehicle.seats}</span>
-                  </div>
-                  <p className="text-sm text-stone-400 leading-relaxed">{selVehicle.desc}</p>
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-stone-200 mb-3">Features</h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {selVehicle.features.map((f) => (
-                      <div key={f} className="flex items-center gap-2 text-sm text-stone-300"><CheckCircle2 size={14} className="text-green-500" />{f}</div>
-                    ))}
-                  </div>
-                </div>
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi! I'm interested in ${selVehicle.model} (${selVehicle.type}, ${selVehicle.seats}). Please share a custom quote.`)}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3.5 rounded-xl hover:bg-green-500 transition-all ripple-btn animate-glow-pulse-green">
-                  <MessageCircle size={16} /> Book This Vehicle
-                </a>
+                <div><div className="flex items-center gap-3 mb-3"><span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-500/15 text-amber-300 border border-amber-500/30">{selVehicle.type}</span><span className="text-sm text-stone-400">{selVehicle.seats}</span></div><p className="text-sm text-stone-400 leading-relaxed">{selVehicle.desc}</p></div>
+                <div><h4 className="text-sm font-semibold text-stone-200 mb-3">Features</h4><div className="grid grid-cols-2 gap-2">{selVehicle.features.map((f) => (<div key={f} className="flex items-center gap-2 text-sm text-stone-300"><CheckCircle2 size={14} className="text-green-500" />{f}</div>))}</div></div>
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi! I'm interested in ${selVehicle.model} (${selVehicle.type}, ${selVehicle.seats}). Please share a custom quote.`)}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3.5 rounded-xl hover:bg-green-500 transition-all ripple-btn animate-glow-pulse-green"><MessageCircle size={16} /> Book This Vehicle</a>
               </div>
             </>
           )}
         </SheetContent>
       </Sheet>
-
       <div className="section-separator" />
 
-      {/* 11. AI TOOLS */}
+      {/* AI TOOLS */}
       <section id="ai-tools" className="relative py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -994,9 +893,7 @@ export default function Home() {
             {AI_TOOLS.map((tool, idx) => (
               <a key={tool.title} href={tool.link} className={`reveal stagger-${Math.min(idx + 2, 7)} group card-premium rounded-2xl p-6 block`}>
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:text-amber-300 transition-colors">
-                    <tool.icon size={22} />
-                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:text-amber-300 transition-colors"><tool.icon size={22} /></div>
                   {tool.badge && <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-bold text-white uppercase tracking-wider ${tool.badgeColor}`}>{tool.badge}</span>}
                 </div>
                 <h3 className="text-lg font-bold text-stone-100 group-hover:text-amber-300 transition-colors mb-2">{tool.title}</h3>
@@ -1013,7 +910,7 @@ export default function Home() {
 
       <div className="section-separator" />
 
-      {/* 12. TESTIMONIALS */}
+      {/* TESTIMONIALS */}
       <section className="relative py-20 md:py-32 overflow-hidden">
         <div className="grid-pattern absolute inset-0 opacity-20" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
@@ -1032,17 +929,11 @@ export default function Home() {
                 {TESTIMONIALS.map((t, idx) => (
                   <div key={idx} className="embla__slide">
                     <div className="testimonial-card bg-neutral-900/80 backdrop-blur border border-white/5 rounded-2xl overflow-hidden">
-                      <div className="relative h-48 overflow-hidden">
-                        <Image src={t.tripImg} alt={t.trip} fill className="object-cover" sizes="80vw" loading="lazy" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
-                      </div>
+                      <div className="relative h-48 overflow-hidden"><Image src={t.tripImg} alt={t.trip} fill className="object-cover" sizes="80vw" loading="lazy" /><div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" /></div>
                       <div className="p-6 pt-2">
                         <div className="flex items-center gap-1 mb-3">{Array.from({ length: t.rating }).map((_, i) => (<Star key={i} size={14} className="text-amber-400 fill-amber-400" />))}</div>
                         <p className="text-sm text-stone-400 leading-relaxed mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 text-sm font-bold">{t.name.charAt(0)}</div>
-                          <div><p className="text-sm font-semibold text-stone-200">{t.name}</p><p className="text-xs text-stone-500">{t.trip}</p></div>
-                        </div>
+                        <div className="flex items-center gap-3"><div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400 text-sm font-bold">{t.name.charAt(0)}</div><div><p className="text-sm font-semibold text-stone-200">{t.name}</p><p className="text-xs text-stone-500">{t.trip}</p></div></div>
                       </div>
                     </div>
                   </div>
@@ -1051,11 +942,7 @@ export default function Home() {
             </div>
             <button onClick={scrollPrev} className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full glass flex items-center justify-center text-stone-400 hover:text-white transition-all active:scale-90"><ChevronLeft size={16} /></button>
             <button onClick={scrollNext} className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full glass flex items-center justify-center text-stone-400 hover:text-white transition-all active:scale-90"><ChevronRight size={16} /></button>
-            <div className="flex items-center justify-center gap-2 mt-6">
-              {TESTIMONIALS.map((_, idx) => (
-                <button key={idx} onClick={() => emblaApi?.scrollTo(idx)} className={`embla__dot ${emblaSelected === idx ? 'embla__dot--selected' : ''}`} />
-              ))}
-            </div>
+            <div className="flex items-center justify-center gap-2 mt-6">{TESTIMONIALS.map((_, idx) => (<span key={idx} onClick={() => emblaApi?.scrollTo(idx)} className={emblaSelected === idx ? "embla__dot embla__dot--selected" : "embla__dot"}></span>))}</div>
           </div>
         </div>
       </section>
@@ -1071,18 +958,14 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { icon: <Shield size={24} />, title: 'Verified Travel Partner', desc: 'Government registered & fully insured travel company', stat: '9+ Years', color: 'text-emerald-400' },
-              { icon: <Star size={24} />, title: '4.9★ Google Rating', desc: 'Rated excellent by 500+ travellers on Google', stat: '500+ Reviews', color: 'text-amber-400' },
-              { icon: <ThumbsUp size={24} />, title: '98% Satisfaction Rate', desc: 'Almost all travellers recommend us to friends & family', stat: '98%', color: 'text-blue-400' },
-              { icon: <TrendingUp size={24} />, title: 'Growing Every Day', desc: 'Serving 5000+ happy travellers across 6 states', stat: '5000+', color: 'text-violet-400' },
+              { icon: <Shield size={24} />, title: 'Verified Travel Partner', desc: 'Government registered & fully insured travel company', stat: '2+ Years', color: 'text-emerald-400' },
+              { icon: <Star size={24} />, title: 'Google Rating', desc: 'Rated excellent by 100+ travellers on Google', stat: '100+ Reviews', color: 'text-amber-400' },
+              { icon: <ThumbsUp size={24} />, title: '100% Satisfaction', desc: 'All travellers recommend us to friends & family', stat: '100%', color: 'text-blue-400' },
+              { icon: <TrendingUp size={24} />, title: 'Growing Every Month', desc: 'Serving 5000+ happy travellers every month', stat: '5000+', color: 'text-violet-400' },
             ].map((item, idx) => (
               <div key={idx} className={`reveal stagger-${Math.min(idx + 2, 7)} google-trust-badge p-5 flex flex-col items-center text-center gap-3`}>
                 <div className={`${item.color}`}>{item.icon}</div>
-                <div>
-                  <p className="text-xl font-extrabold text-stone-100">{item.stat}</p>
-                  <p className="text-sm font-semibold text-stone-300 mt-1">{item.title}</p>
-                  <p className="text-xs text-stone-500 mt-2 leading-relaxed">{item.desc}</p>
-                </div>
+                <div><p className="text-xl font-extrabold text-stone-100">{item.stat}</p><p className="text-sm font-semibold text-stone-300 mt-1">{item.title}</p><p className="text-xs text-stone-500 mt-2 leading-relaxed">{item.desc}</p></div>
               </div>
             ))}
           </div>
@@ -1091,26 +974,20 @@ export default function Home() {
 
       <div className="section-separator" />
 
-      {/* 13. GALLERY */}
+      {/* GALLERY */}
       <section id="gallery" className="relative py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-8">
             <span className="reveal text-amber-400 text-sm font-semibold tracking-wider uppercase">Gallery</span>
             <h2 className="reveal stagger-1 text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-4">Captured <span className="text-gradient-warm">Moments</span></h2>
           </div>
-          <div className="reveal stagger-2 flex flex-wrap justify-center gap-2 mb-8">
-            {GALLERY_FILTERS.map((f) => (
-              <button key={f} onClick={() => setGFilter(f)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${gFilter === f ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300' : 'bg-white/5 border border-white/10 text-stone-400 hover:text-stone-200'}`}>{f}</button>
-            ))}
-          </div>
+          <div className="reveal stagger-2 flex flex-wrap justify-center gap-2 mb-8">{GALLERY_FILTERS.map((f) => (<button key={f} onClick={() => setGFilter(f)} className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${gFilter === f ? 'bg-amber-500/15 border border-amber-500/40 text-amber-300' : 'bg-white/5 border border-white/10 text-stone-400 hover:text-stone-200'}`}>{f}</button>))}</div>
           <div className="masonry-grid">
             {fGallery.map((photo, idx) => (
               <div key={idx} className="reveal group relative rounded-xl overflow-hidden cursor-pointer hover-lift" onClick={() => setLightbox(photo)} style={{ aspectRatio: photo.tall ? '3/4' : '4/3' }}>
                 <Image src={photo.src} alt={photo.alt} fill className="object-cover group-hover:scale-110 transition-transform duration-700" sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="flex items-center gap-1"><Camera size={12} className="text-white" /><p className="text-xs font-semibold text-white">{photo.alt}</p></div>
-                </div>
+                <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"><div className="flex items-center gap-1"><Camera size={12} className="text-white" /><p className="text-xs font-semibold text-white">{photo.alt}</p></div></div>
               </div>
             ))}
           </div>
@@ -1132,54 +1009,26 @@ export default function Home() {
 
       <div className="section-separator" />
 
-      {/* 14. TRUST & ENGAGEMENT */}
+      {/* TRUST & ENGAGEMENT */}
       <section className="relative py-20 md:py-28">
         <div className="grid-pattern absolute inset-0 opacity-30" />
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center">
-          <div className="reveal">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Trusted by <span className="text-gradient-warm">Thousands</span></h2>
-            <p className="text-stone-400 max-w-xl mx-auto mb-10">Join the growing family of happy travellers who trust RRM Holidays for their South India adventures.</p>
-          </div>
-          <div className="reveal stagger-1 grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-            {[
-              { icon: Users, value: '5000+', label: 'Happy Travellers', color: 'text-blue-400 bg-blue-500/10' },
-              { icon: Car, value: '150+', label: 'Vehicles', color: 'text-amber-400 bg-amber-500/10' },
-              { icon: MapPin, value: '6', label: 'States Covered', color: 'text-emerald-400 bg-emerald-500/10' },
-              { icon: Award, value: '9+', label: 'Years Experience', color: 'text-violet-400 bg-violet-500/10' },
-            ].map((b) => (
-              <div key={b.label} className="trust-badge flex flex-col items-center p-6 text-center">
-                <div className={`w-12 h-12 rounded-xl ${b.color} flex items-center justify-center mb-3`}><b.icon size={22} /></div>
-                <div className="stat-number text-2xl font-extrabold">{b.value}</div>
-                <div className="text-xs text-stone-500 mt-1">{b.label}</div>
-              </div>
-            ))}
-          </div>
-          <div className="reveal stagger-2 flex items-center justify-center gap-2 mb-4">
-            <div className="flex items-center gap-0.5">{Array.from({ length: 5 }).map((_, i) => (<Star key={i} size={18} className="text-amber-400 fill-amber-400" />))}</div>
-            <span className="text-lg font-bold text-stone-200 ml-1">4.9</span>
-            <span className="text-sm text-stone-500">/ 5.0</span>
-          </div>
-          <div className="reveal stagger-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-            <CheckCircle2 size={14} /> Verified by Google
-          </div>
+          <div className="reveal"><h2 className="text-3xl md:text-4xl font-extrabold mb-4">Trusted by <span className="text-gradient-warm">Thousands</span></h2><p className="text-stone-400 max-w-xl mx-auto mb-10">Join the growing family of happy travellers who trust RRM Holidays for their South India adventures.</p></div>
+          <div className="reveal stagger-2 flex items-center justify-center gap-2 mb-4"><div className="flex items-center gap-0.5">{Array.from({ length: 5 }).map((_, i) => (<Star key={i} size={18} className="text-amber-400 fill-amber-400" />))}</div><span className="text-lg font-bold text-stone-200 ml-1">4.9</span><span className="text-sm text-stone-500">/ 5.0</span></div>
+          <div className="reveal stagger-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold"><CheckCircle2 size={14} /> Verified by Google</div>
           <div className="reveal stagger-4 grid grid-cols-1 sm:grid-cols-3 gap-3 mt-10 max-w-2xl mx-auto">
             {[
               { icon: Shield, text: '100% Safe & Secure' },
               { icon: ThumbsUp, text: 'No Hidden Charges' },
               { icon: Headphones, text: '24/7 Travel Support' },
-            ].map((f) => (
-              <div key={f.text} className="flex items-center gap-3 p-4 rounded-xl bg-neutral-900/60 border border-white/5">
-                <f.icon size={18} className="text-amber-400 shrink-0" />
-                <span className="text-sm text-stone-300">{f.text}</span>
-              </div>
-            ))}
+            ].map((f) => (<div key={f.text} className="flex items-center gap-3 p-4 rounded-xl bg-neutral-900/60 border border-white/5"><f.icon size={18} className="text-amber-400 shrink-0" /><span className="text-sm text-stone-300">{f.text}</span></div>))}
           </div>
         </div>
       </section>
 
       <div className="section-separator" />
 
-      {/* 15. CONTACT */}
+      {/* CONTACT */}
       <section id="contact" className="relative py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
@@ -1190,33 +1039,22 @@ export default function Home() {
             <div className="lg:col-span-3 reveal stagger-2">
               <div className="glass rounded-2xl p-6 md:p-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                  <div className="relative">
-                    <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-                    <select suppressHydrationWarning value={cDest} onChange={(e) => setCDest(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Select Destination</option>{DESTINATIONS.map((d) => <option key={d} value={d}>{d}</option>)}</select>
-                  </div>
-                  <div className="relative">
-                    <Calendar size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-                    <input suppressHydrationWarning type="date" value={cDate} onChange={(e) => setCDate(e.target.value)} min={new Date().toISOString().split('T')[0]} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" />
-                  </div>
+                  <div className="relative"><MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" /><select suppressHydrationWarning value={cDest} onChange={(e) => setCDest(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Select Destination</option>{DESTINATIONS.map((d) => <option key={d} value={d}>{d}</option>)}</select></div>
+                  <div className="relative"><Calendar size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" /><input suppressHydrationWarning type="date" value={cDate} onChange={(e) => setCDate(e.target.value)} min={new Date().toISOString().split('T')[0]} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" /></div>
                   <input suppressHydrationWarning type="text" placeholder="Your Name *" value={cName} onChange={(e) => setCName(e.target.value)} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200" />
                   <input suppressHydrationWarning type="tel" placeholder="Phone Number *" value={cPhone} onChange={(e) => setCPhone(e.target.value)} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200" />
                   <input suppressHydrationWarning type="email" placeholder="Email Address" value={cEmail} onChange={(e) => setEmail(e.target.value)} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200" />
-                  <div className="relative">
-                    <Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-                    <input suppressHydrationWarning type="number" placeholder="No. of Travellers" min="1" value={cTravellers} onChange={(e) => setCTravellers(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" />
-                  </div>
+                  <div className="relative"><Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" /><input suppressHydrationWarning type="number" placeholder="No. of Travellers" min="1" value={cTravellers} onChange={(e) => setCTravellers(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" /></div>
                 </div>
                 <textarea suppressHydrationWarning placeholder="Tell us about your trip..." value={cMsg} onChange={(e) => setCMsg(e.target.value)} rows={3} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200 mb-4 resize-none" />
-                <button onClick={handleContactSubmit} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold py-3.5 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all ripple-btn">
-                  <Send size={16} /> Send Enquiry via WhatsApp
-                </button>
+                <button onClick={handleContactSubmit} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold py-3.5 rounded-xl hover:from-amber-400 hover:to-amber-500 transition-all ripple-btn"><Send size={16} /> Send Enquiry via WhatsApp</button>
               </div>
             </div>
             <div className="lg:col-span-2 reveal stagger-3 space-y-4">
               {[
                 { icon: Phone, label: 'Call Us', value: '+91 91085 97154', href: 'tel:+919108597154', color: 'text-amber-400' },
                 { icon: MessageCircle, label: 'WhatsApp', value: '+91 91085 97154', href: `https://wa.me/${WHATSAPP_NUMBER}`, color: 'text-green-400' },
-                { icon: Mail, label: 'Email', value: 'info@rrmholidays.com', href: 'mailto:info@rrmholidays.com', color: 'text-blue-400' },
+                { icon: Mail, label: 'Email', value: 'rrmholidays06@yahoo.com', href: 'mailto:rrmholidays06@yahoo.com', color: 'text-blue-400' },
                 { icon: MapPin, label: 'Location', value: 'Mysuru, Karnataka, India', href: '#', color: 'text-rose-400' },
               ].map((c) => (
                 <a key={c.label} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined} rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="flex items-center gap-4 p-4 rounded-xl bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-3d group">
@@ -1234,15 +1072,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 16. FOOTER */}
+      {/* FOOTER */}
       <footer className="relative border-t border-white/5 py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Image src="/logo.png" alt="RRM Holidays" width={32} height={32} className="h-8 w-auto rounded-lg object-contain" loading="lazy" />
-                <span className="text-lg font-bold text-stone-100">RRM <span className="text-amber-400">Holidays</span></span>
-              </div>
+              <div className="flex items-center gap-2 mb-4"><Image src="/logo.png" alt="RRM Holidays" width={32} height={32} className="h-8 w-auto rounded-lg object-contain" loading="lazy" /><span className="text-lg font-bold text-stone-100">RRM <span className="text-amber-400">Holidays</span></span></div>
               <p className="text-sm text-stone-500 leading-relaxed mb-4">Premium South India travel experiences. Based in Mysuru, serving 6 states with passion and expertise.</p>
               <div className="flex items-center gap-3">
                 <a href="https://instagram.com/rrmholidays" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-pink-400 transition-colors"><Instagram size={18} /></a>
@@ -1250,102 +1085,51 @@ export default function Home() {
                 <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-green-400 transition-colors"><MessageCircle size={18} /></a>
               </div>
             </div>
-            <div>
-              <h4 className="text-sm font-bold text-stone-200 mb-4">Quick Links</h4>
-              <div className="flex flex-col gap-2">
-                {NAV_LINKS.map((link) => (
-                  <Link key={link.href} href={link.href} className="text-sm text-stone-500 hover:text-amber-400 transition-colors">{link.label}</Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-stone-200 mb-4">Top Destinations</h4>
-              <div className="flex flex-col gap-2">
-                {STATE_CARDS.map((s) => (
-                  <Link key={s.slug} href={`/destinations/${s.slug}`} className="text-sm text-stone-500 hover:text-amber-400 transition-colors">{s.icon} {s.name}</Link>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-stone-200 mb-4">Contact Info</h4>
-              <div className="flex flex-col gap-3 text-sm text-stone-500">
-                <div className="flex items-center gap-2"><Phone size={14} className="text-amber-400" /> +91 91085 97154</div>
-                <div className="flex items-center gap-2"><Mail size={14} className="text-amber-400" /> info@rrmholidays.com</div>
-                <div className="flex items-center gap-2"><MapPin size={14} className="text-amber-400" /> Mysuru, Karnataka, India</div>
-                <div className="flex items-center gap-2"><Clock size={14} className="text-amber-400" /> 24/7 Available</div>
-              </div>
-            </div>
+            <div><h4 className="text-sm font-bold text-stone-200 mb-4">Quick Links</h4><div className="flex flex-col gap-2">{NAV_LINKS.map((link) => (<Link key={link.href} href={link.href} className="text-sm text-stone-500 hover:text-amber-400 transition-colors">{link.label}</Link>))}</div></div>
+            <div><h4 className="text-sm font-bold text-stone-200 mb-4">Top Destinations</h4><div className="flex flex-col gap-2">{STATE_CARDS.map((s) => (<Link key={s.slug} href={`/destinations/${s.slug}`} className="text-sm text-stone-500 hover:text-amber-400 transition-colors">{s.icon} {s.name}</Link>))}</div></div>
+            <div><h4 className="text-sm font-bold text-stone-200 mb-4">Contact Info</h4><div className="flex flex-col gap-3 text-sm text-stone-500"><div className="flex items-center gap-2"><Phone size={14} className="text-amber-400" /> +91 91085 97154</div><div className="flex items-center gap-2"><Mail size={14} className="text-amber-400" /> rrmholidays06@yahoo.com</div><div className="flex items-center gap-2"><MapPin size={14} className="text-amber-400" /> Mysuru, Karnataka, India</div><div className="flex items-center gap-2"><Clock size={14} className="text-amber-400" /> 24/7 Available</div></div></div>
           </div>
-          <div className="border-t border-white/5 pt-6 text-center">
-            <p className="text-xs text-stone-600">&copy; {new Date().getFullYear()} RRM Holidays. All rights reserved. Made with ❤️ in Mysuru, India.</p>
-          </div>
+          <div className="border-t border-white/5 pt-6 text-center"><p className="text-xs text-stone-600">&copy; {new Date().getFullYear()} RRM Holidays. All rights reserved. Made with ❤️ in Mysuru, India.</p></div>
         </div>
       </footer>
 
-      {/* 17. MOBILE BOTTOM BAR — handled globally by FloatingButtons.tsx */}
+      {/* BACK TO TOP */}
+      {backToTop && (<button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-10 h-10 sm:w-11 sm:h-11 rounded-full glass flex items-center justify-center text-stone-400 hover:text-amber-400 transition-all active:scale-90" aria-label="Back to top"><ChevronUp size={18} /></button>)}
 
-      {/* 18. BACK TO TOP */}
-      {backToTop && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-10 h-10 sm:w-11 sm:h-11 rounded-full glass flex items-center justify-center text-stone-400 hover:text-amber-400 transition-all active:scale-90" aria-label="Back to top">
-          <ChevronUp size={18} />
-        </button>
-      )}
-
-      {/* 19. INACTIVITY POPUP */}
+      {/* INACTIVITY POPUP */}
       {showInactivity && (
         <div className="inactivity-popup-backdrop" onClick={() => setShowInactivity(false)}>
           <div className="inactivity-popup" onClick={(e) => e.stopPropagation()}>
             <button onClick={() => setShowInactivity(false)} className="absolute top-4 right-4 text-stone-500 hover:text-white"><X size={18} /></button>
             <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mx-auto mb-4">
-                <MessageCircle size={28} className="text-amber-400" />
-              </div>
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mx-auto mb-4"><MessageCircle size={28} className="text-amber-400" /></div>
               <h3 className="text-xl font-bold text-stone-100 mb-2">Need help planning your trip?</h3>
               <p className="text-sm text-stone-400 mb-6">Our travel experts are ready to create the perfect itinerary for you — completely free!</p>
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like help planning a South India trip.")}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3 rounded-xl hover:bg-green-500 transition-all ripple-btn animate-glow-pulse-green mb-3">
-                <MessageCircle size={16} /> Chat on WhatsApp
-              </a>
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like help planning a South India trip.")}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3 rounded-xl hover:bg-green-500 transition-all ripple-btn animate-glow-pulse-green mb-3"><MessageCircle size={16} /> Chat on WhatsApp</a>
               <a href="#destinations" onClick={() => setShowInactivity(false)} className="text-sm text-amber-400 hover:text-amber-300 transition-colors">Browse Destinations</a>
             </div>
           </div>
         </div>
       )}
 
-      {/* 20. TOAST NOTIFICATIONS */}
+      {/* TOAST NOTIFICATIONS */}
       <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-xs z-[9999] flex flex-col gap-2">
-        {toasts.map((t) => (
-          <div key={t.id} className="toast glass rounded-xl px-4 py-3 text-sm text-stone-200 border border-white/10 shadow-xl">
-            {t.msg}
-          </div>
-        ))}
+        {toasts.map((t) => (<div key={t.id} className="toast glass rounded-xl px-4 py-3 text-sm text-stone-200 border border-white/10 shadow-xl">{t.msg}</div>))}
       </div>
 
-      {/* 21. BOOKING DIALOG */}
+      {/* BOOKING DIALOG */}
       <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
         <DialogContent className="bg-neutral-950 border-white/10 max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="text-stone-100">Quick Booking</DialogTitle>
-          </DialogHeader>
+          <DialogHeader><DialogTitle className="text-stone-100">Quick Booking</DialogTitle></DialogHeader>
           <div className="space-y-3 mt-4">
-            <div className="relative">
-              <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-              <select suppressHydrationWarning value={bDest} onChange={(e) => setBDest(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Destination *</option>{DESTINATIONS.map((d) => <option key={d} value={d}>{d}</option>)}</select>
-            </div>
-            <div className="relative">
-              <Calendar size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-              <input suppressHydrationWarning type="date" value={bDate} onChange={(e) => setBDate(e.target.value)} min={new Date().toISOString().split('T')[0]} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" />
-            </div>
-            <div className="relative">
-              <Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" />
-              <select suppressHydrationWarning value={bMembers} onChange={(e) => setBMembers(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Travellers *</option><option>1 Person</option><option>2 Persons</option><option>3-5 Persons</option><option>6-10 Persons</option><option>11-20 Persons</option><option>21-35 Persons</option><option>35+ Persons</option></select>
-            </div>
+            <div className="relative"><MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" /><select suppressHydrationWarning value={bDest} onChange={(e) => setBDest(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Destination *</option>{DESTINATIONS.map((d) => <option key={d} value={d}>{d}</option>)}</select></div>
+            <div className="relative"><Calendar size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" /><input suppressHydrationWarning type="date" value={bDate} onChange={(e) => setBDate(e.target.value)} min={new Date().toISOString().split('T')[0]} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" /></div>
+            <div className="relative"><Users size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-500" /><select suppressHydrationWarning value={bMembers} onChange={(e) => setBMembers(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Travellers *</option><option>1 Person</option><option>2 Persons</option><option>3-5 Persons</option><option>6-10 Persons</option><option>11-20 Persons</option><option>21-35 Persons</option><option>35+ Persons</option></select></div>
             <input suppressHydrationWarning type="text" placeholder="Your Name" value={bName} onChange={(e) => setBName(e.target.value)} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200" />
             <input suppressHydrationWarning type="tel" placeholder="Phone Number" value={bPhone} onChange={(e) => setBPhone(e.target.value)} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200" />
             <select suppressHydrationWarning value={bVehicle} onChange={(e) => setBVehicle(e.target.value)} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200 appearance-none cursor-pointer"><option value="">Vehicle (Optional)</option><option>Sedan (Etios/Dzire)</option><option>Innova</option><option>Innova Crysta</option><option>Tempo Traveller</option><option>Force Urbania</option><option>Mini Bus</option><option>Bus</option><option>Luxury Coach</option><option>Need Suggestion</option></select>
             <textarea suppressHydrationWarning placeholder="Special Requests" value={bNotes} onChange={(e) => setBNotes(e.target.value)} rows={2} className="search-input w-full px-4 py-3 rounded-xl text-sm text-stone-200 resize-none" />
-            <button onClick={() => { handleBookingSubmit(); setBookingOpen(false); }} className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3.5 rounded-xl hover:bg-green-500 transition-all ripple-btn">
-              <MessageCircle size={16} /> Enquire on WhatsApp
-            </button>
+            <button onClick={() => { handleBookingSubmit(); setBookingOpen(false); }} className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3.5 rounded-xl hover:bg-green-500 transition-all ripple-btn"><MessageCircle size={16} /> Enquire on WhatsApp</button>
           </div>
         </DialogContent>
       </Dialog>

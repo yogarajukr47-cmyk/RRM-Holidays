@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, Phone, MapPin, MessageCircle, Search, Sparkles, ArrowDown, Home, ChevronUp } from 'lucide-react';
+import { Menu, X, Phone, MapPin, MessageCircle, Search, Sparkles, Home, ChevronUp } from 'lucide-react';
 
 import { ScrollReveal } from '../ScrollReveal';
 import { KERALA } from '@/lib/places-data';
@@ -20,14 +20,10 @@ function getWhatsAppLink(placeName: string) {
 export default function KeralaPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [visiblePlaces, setVisiblePlaces] = useState(12);
-  const categories = ['All', ...Array.from(new Set(PLACES.map(p => p.category)))];
 
   const filteredPlaces = PLACES.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.desc.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return matchesSearch;
   });
 
   return (
@@ -97,9 +93,7 @@ export default function KeralaPage() {
                 <input type="text" placeholder="Search places... (e.g., Munnar, Kochi, Alleppey)" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="search-input w-full pl-9 pr-3 py-3 rounded-xl text-sm text-stone-200" />
               </div>
               <div className="flex flex-wrap gap-2">
-                {categories.map(cat => (
-                  <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${selectedCategory === cat ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black' : 'bg-white/5 text-stone-400 hover:bg-white/10 hover:text-white'}`}>{cat}</button>
-                ))}
+                <button className="px-4 py-2 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500 to-amber-600 text-black">All</button>
               </div>
             </div>
           </div>
@@ -110,7 +104,7 @@ export default function KeralaPage() {
       <section className="pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredPlaces.slice(0, visiblePlaces).map((place) => (
+            {filteredPlaces.map((place) => (
               <div key={place.name} className="reveal group rounded-2xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-lift card-shine">
                 <Link href={`/destinations/kerala/${place.slug}`} className="block">
                 <div className="relative aspect-[16/10] overflow-hidden">
@@ -134,11 +128,6 @@ export default function KeralaPage() {
               </div>
             ))}
           </div>
-          {visiblePlaces < filteredPlaces.length && (
-            <div className="text-center mt-10">
-              <button onClick={() => setVisiblePlaces(prev => prev + 12)} className="px-8 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold hover:from-amber-400 hover:to-amber-500 transition-all inline-flex items-center gap-2">Load More <ArrowDown size={16} /></button>
-            </div>
-          )}
         </div>
       </section>
 

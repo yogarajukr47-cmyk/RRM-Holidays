@@ -1,194 +1,331 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import {
-  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
   Phone,
   MessageCircle,
   Users,
   Shield,
+  X,
+  Calendar,
+  MapPin,
+  User,
+  PhoneCall,
+  FileText,
+  IndianRupee,
+  Car,
   Clock,
   Star,
-  Check,
-  IndianRupee,
-  Navigation,
-  Music,
-  Car,
-  Search,
-  SlidersHorizontal,
-  ArrowRight,
 } from 'lucide-react';
 
 /* ─── Vehicle Data ─── */
 const VEHICLES = [
-  { id: 1, type: 'Sedan', model: 'Toyota Etios', img: '/sedan-etios.jpg', seats: '4 Seaters', pricePerKm: '₹14', badge: null, badgeColor: '', features: ['AC', 'Music System', 'Comfortable Seats', 'Boot Space'], desc: 'Perfect for small family trips and city tours. Spacious boot, comfortable interiors, and smooth highway performance make it an ideal companion for short getaways and business travel.', ac: 'Full AC', luggage: '2 large suitcases + 2 small bags', music: 'FM/USB/Bluetooth', transmission: 'Automatic' },
-  { id: 2, type: 'Sedan', model: 'Maruti Swift Dzire', img: '/swift-dzire.jpg', seats: '4 Seaters', pricePerKm: '₹13', badge: 'Popular', badgeColor: 'bg-amber-500', features: ['AC', 'Music System', 'Comfortable Seats', 'Fuel Efficient'], desc: 'Compact sedan ideal for city rides and short trips. Known for exceptional fuel efficiency and reliable performance on both city roads and highways across South India.', ac: 'Full AC', luggage: '1 large suitcase + 2 small bags', music: 'FM/USB/Bluetooth', transmission: 'Automatic' },
-  { id: 3, type: 'MUV', model: 'Toyota Innova', img: '/innova-muv.jpg', seats: '7 Seaters', pricePerKm: '₹18', badge: null, badgeColor: '', features: ['Spacious', 'AC', 'Music System', 'Luggage Space'], desc: 'Ideal for family vacations and group travel. The most trusted MUV in India with ample cabin space, powerful AC, and enough room for the entire family plus luggage.', ac: 'Dual Zone AC', luggage: '4 large suitcases + hand luggage', music: 'FM/USB/DVD', transmission: 'Automatic' },
-  { id: 4, type: 'Premium MUV', model: 'Innova Crysta', img: '/innova-crysta.jpg', seats: '7 Seaters', pricePerKm: '₹22', badge: 'Premium', badgeColor: 'bg-violet-500', features: ['Premium AC', 'Luxury Seats', 'Entertainment System', 'Captain Seats'], desc: 'Premium comfort for luxury travel experiences. Captain seats with armrests, touchscreen entertainment, rear AC vents, and a smoother ride quality for discerning travellers.', ac: 'Rear AC + Captain Seat AC', luggage: '4 large suitcases + hand luggage', music: 'Touchscreen + FM/USB/DVD', transmission: 'Automatic' },
-  { id: 10, type: 'Tempo Traveller', model: 'Force Urbania 10 Seater', img: '/urbania-10.jpg', seats: '10 Seaters', pricePerKm: '₹33', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Compact yet spacious 10-seater Force Urbania, perfect for medium-sized groups exploring South India. Modern design, powerful AC, and superior ride comfort compared to older tempo travellers.', ac: 'Powerful AC', luggage: 'Rear cabin + overhead', music: 'FM/USB/Bluetooth', transmission: 'Manual' },
-  { id: 11, type: 'Tempo Traveller', model: 'Force Urbania 13 Seater', img: '/urbania-13.jpg', seats: '13 Seaters', pricePerKm: '₹36', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'The versatile 13-seater Force Urbania is a crowd favourite for family trips, temple tours, and weekend getaways. Spacious interiors with pushback reclining seats and individual AC vents.', ac: 'Rear + Overhead AC', luggage: 'Rear cabin + overhead', music: 'FM/USB/Bluetooth', transmission: 'Manual' },
-  { id: 5, type: 'Tempo Traveller', model: 'Force Tempo Traveller 12 Seater', img: '/tempo-traveller.jpg', seats: '12 Seaters', pricePerKm: '₹25', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Best for medium groups, corporate trips and family outings. Pushback reclining seats, powerful air conditioning, and generous luggage space make it the go-to choice for groups of 8-12.', ac: 'Powerful AC', luggage: 'Overhead + rear cabin', music: 'FM/USB', transmission: 'Manual' },
-  { id: 12, type: 'Tempo Traveller', model: 'Force Urbania 16 Seater', img: '/urbania-16.jpg', seats: '16 Seaters', pricePerKm: '₹39', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Extra Luggage'], desc: 'The largest Force Urbania variant with 16 comfortable pushback seats. Ideal for extended family trips, corporate outings, and large group tours requiring modern comfort and reliable performance.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', music: 'FM/USB/Bluetooth', transmission: 'Manual' },
-  { id: 6, type: 'Mini Bus', model: '21 Seater Mini Bus', img: '/mini-bus.jpg', seats: '21 Seaters', pricePerKm: '₹32', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Best for large groups, weddings and corporate events. Comfortable pushback seating, individual AC vents, and a separate luggage compartment ensure a pleasant journey for every passenger.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin area', music: 'PA System + USB', transmission: 'Manual' },
-  { id: 7, type: 'Bus', model: '25 Seater Bus', img: '/bus-25seater.jpg', seats: '25 Seaters', pricePerKm: '₹35', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'PA System'], desc: 'Ideal for large groups, school trips and corporate outings. Well-maintained pushback seats, effective air conditioning, and a public address system for guided tours and announcements.', ac: 'Full AC', luggage: 'Under-seat + separate hold', music: 'PA System + USB', transmission: 'Manual' },
-  { id: 8, type: 'Bus', model: '33 Seater Bus', img: '/bus-33seater.jpg', seats: '33 Seaters', pricePerKm: '₹38', badge: null, badgeColor: '', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System'], desc: 'Spacious bus for pilgrimage tours and large group travel. Recliner seats with ample legroom, full air conditioning, and entertainment options make long-distance journeys comfortable and enjoyable.', ac: 'Full AC', luggage: 'Under-seat + separate hold', music: 'PA System + Entertainment', transmission: 'Manual' },
-  { id: 9, type: 'Luxury Bus', model: '50 Seater Luxury Coach', img: '/bus-50seater.jpg', seats: '50 Seaters', pricePerKm: '₹45', badge: 'Luxury', badgeColor: 'bg-cyan-500', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System', 'WiFi'], desc: 'Luxury Volvo coach for very large groups, pilgrimages and tours. Premium recliner seats, dual-zone climate control, onboard WiFi, entertainment screens, and massive luggage capacity for extended tours.', ac: 'Dual Zone AC', luggage: 'Large under-belly + overhead', music: 'PA System + WiFi + TV', transmission: 'Automatic' },
+  { id: 1, type: 'Sedan', model: 'Toyota Etios', img: '/sedan-etios.jpg', seats: '4 Seaters', seatNum: 4, pricePerKm: '₹12', badge: null, badgeColor: '', features: ['AC', 'Music System', 'Comfortable Seats', 'Boot Space'], desc: 'Perfect for small family trips and city tours. Spacious boot, comfortable interiors, and smooth highway performance.', ac: 'Full AC', luggage: '2 large + 2 small bags', transmission: 'Automatic' },
+  { id: 2, type: 'Sedan', model: 'Maruti Swift Dzire', img: '/swift-dzire.jpg', seats: '4 Seaters', seatNum: 4, pricePerKm: '₹12', badge: 'Popular', badgeColor: 'bg-amber-500', features: ['AC', 'Music System', 'Comfortable Seats', 'Fuel Efficient'], desc: 'Compact sedan ideal for city rides and short trips. Known for exceptional fuel efficiency and reliable performance.', ac: 'Full AC', luggage: '1 large + 2 small bags', transmission: 'Automatic' },
+  { id: 3, type: 'MUV', model: 'Toyota Innova', img: '/innova-muv.jpg', seats: '7 Seaters', seatNum: 7, pricePerKm: '₹18', badge: null, badgeColor: '', features: ['Spacious', 'AC', 'Music System', 'Luggage Space'], desc: 'Ideal for family vacations and group travel. The most trusted MUV in India with ample cabin space and powerful AC.', ac: 'Dual Zone AC', luggage: '4 large + hand luggage', transmission: 'Automatic' },
+  { id: 4, type: 'Premium MUV', model: 'Innova Crysta', img: '/innova-crysta.jpg', seats: '7 Seaters', seatNum: 7, pricePerKm: '₹18', badge: 'Premium', badgeColor: 'bg-violet-500', features: ['Premium AC', 'Luxury Seats', 'Entertainment', 'Captain Seats'], desc: 'Premium comfort for luxury travel. Captain seats with armrests, touchscreen entertainment, and rear AC vents.', ac: 'Rear + Captain AC', luggage: '4 large + hand luggage', transmission: 'Automatic' },
+  { id: 10, type: 'Tempo Traveller', model: 'Force Urbania 10 Seater', img: '/urbania-10.jpg', seats: '10 Seaters', seatNum: 10, pricePerKm: '₹33', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Compact yet spacious 10-seater Urbania, perfect for medium groups exploring South India with modern comfort.', ac: 'Powerful AC', luggage: 'Rear cabin + overhead', transmission: 'Manual' },
+  { id: 11, type: 'Tempo Traveller', model: 'Force Urbania 13 Seater', img: '/urbania-13.jpg', seats: '13 Seaters', seatNum: 13, pricePerKm: '₹36', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Versatile 13-seater Urbania, a crowd favourite for family trips, temple tours, and weekend getaways.', ac: 'Rear + Overhead AC', luggage: 'Rear cabin + overhead', transmission: 'Manual' },
+  { id: 5, type: 'Tempo Traveller', model: 'Force Tempo Traveller 12 Seater', img: '/tempo-traveller.jpg', seats: '12 Seaters', seatNum: 12, pricePerKm: '₹21', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Best for medium groups, corporate trips and family outings with pushback reclining seats and powerful AC.', ac: 'Powerful AC', luggage: 'Overhead + rear cabin', transmission: 'Manual' },
+  { id: 12, type: 'Tempo Traveller', model: 'Force Urbania 16 Seater', img: '/urbania-16.jpg', seats: '16 Seaters', seatNum: 16, pricePerKm: '₹39', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Extra Luggage'], desc: 'Largest Force Urbania variant with 16 comfortable pushback seats for extended family and corporate trips.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', transmission: 'Manual' },
+  { id: 6, type: 'Mini Bus', model: '21 Seater Mini Bus', img: '/mini-bus.jpg', seats: '21 Seaters', seatNum: 21, pricePerKm: '₹30', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Best for large groups, weddings and corporate events with comfortable pushback seating and individual AC vents.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', transmission: 'Manual' },
+  { id: 7, type: 'Bus', model: '25 Seater Bus', img: '/bus-25seater.jpg', seats: '25 Seaters', seatNum: 25, pricePerKm: '₹35', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'PA System'], desc: 'Ideal for large groups, school trips and corporate outings with well-maintained pushback seats.', ac: 'Full AC', luggage: 'Under-seat + separate hold', transmission: 'Manual' },
+  { id: 8, type: 'Bus', model: '33 Seater Bus', img: '/bus-33seater.jpg', seats: '33 Seaters', seatNum: 33, pricePerKm: '₹38', badge: null, badgeColor: '', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System'], desc: 'Spacious bus for pilgrimage tours and large group travel with recliner seats and ample legroom.', ac: 'Full AC', luggage: 'Under-seat + separate hold', transmission: 'Manual' },
+  { id: 9, type: 'Luxury Bus', model: '50 Seater Luxury Coach', img: '/bus-50seater.jpg', seats: '50 Seaters', seatNum: 50, pricePerKm: '₹55', badge: 'Luxury', badgeColor: 'bg-cyan-500', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System', 'WiFi'], desc: 'Luxury Volvo coach for very large groups with premium recliner seats, dual-zone AC, onboard WiFi.', ac: 'Dual Zone AC', luggage: 'Large under-belly + overhead', transmission: 'Automatic' },
 ];
 
 const WHATSAPP_NUMBER = '919108597154';
 
-const VEHICLE_TYPES = ['All', 'Sedan', 'MUV', 'Premium MUV', 'Tempo Traveller', 'Mini Bus', 'Bus', 'Luxury Bus'];
-const SEAT_FILTERS = ['All', '4', '7', '10', '12', '13', '16', '21', '25', '33', '50'];
+/* ─── Booking Form Modal ─── */
+function BookingModal({ vehicle, onClose }: { vehicle: typeof VEHICLES[number]; onClose: () => void }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    pickup: '',
+    date: '',
+    placeToVisit: '',
+    members: '',
+    phone: '',
+    requirements: '',
+  });
+  const [sending, setSending] = useState(false);
 
-/* ─── Single Vehicle Card ─── */
-function VehicleCard({ vehicle, index }: { vehicle: typeof VEHICLES[number]; index: number }) {
-  /* Alternate: even = full-width horizontal, odd = split into 2 cols */
-  const isFullWidth = index % 2 === 0;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  if (isFullWidth) {
-    return (
-      <div className="w-full">
-        <Link
-          href={`/vehicles/${vehicle.id}`}
-          className="group grid grid-cols-1 md:grid-cols-2 gap-0 rounded-2xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-lift card-shine"
-        >
-          {/* Left: Image */}
-          <div className="relative aspect-[16/10] md:aspect-auto overflow-hidden">
-            <Image
-              src={vehicle.img}
-              alt={vehicle.model}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-              sizes="(max-width:768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent md:bg-gradient-to-r md:from-transparent md:to-black/60" />
-            {vehicle.badge && (
-              <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-wider ${vehicle.badgeColor}`}>
-                {vehicle.badge}
-              </span>
-            )}
-            {/* Mobile overlay info */}
-            <div className="absolute bottom-3 left-4 right-4 md:hidden">
-              <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest">{vehicle.type}</span>
-              <h3 className="text-lg font-bold text-white leading-tight mt-0.5">{vehicle.model}</h3>
-            </div>
-          </div>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSending(true);
 
-          {/* Right: Details */}
-          <div className="p-5 md:p-8 flex flex-col justify-center">
-            <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest hidden md:block">{vehicle.type}</span>
-            <h3 className="text-xl md:text-2xl font-bold text-stone-100 leading-tight mt-1 mb-3">{vehicle.model}</h3>
-            <p className="text-sm text-stone-400 leading-relaxed mb-5 line-clamp-3">{vehicle.desc}</p>
+    const message =
+      `🚗 *Vehicle Booking Request — RRM Holidays*\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `*Vehicle Selected:*\n` +
+      `📦 ${vehicle.model} (${vehicle.type})\n` +
+      `💺 ${vehicle.seats}\n` +
+      `💰 ${vehicle.pricePerKm}/km\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `*Customer Details:*\n` +
+      `👤 Name: ${formData.name}\n` +
+      `📍 Pickup Address: ${formData.pickup}\n` +
+      `📅 Travel Date: ${formData.date}\n` +
+      `🗺️ Places to Visit: ${formData.placeToVisit}\n` +
+      `👥 No. of Members: ${formData.members}\n` +
+      `📱 Phone: ${formData.phone}\n` +
+      `📝 Requirements: ${formData.requirements || 'None'}\n\n` +
+      `━━━━━━━━━━━━━━━━━━━━\n` +
+      `— Sent from RRM Holidays Website`;
 
-            {/* Quick Stats Row */}
-            <div className="grid grid-cols-3 gap-3 mb-5">
-              <div className="text-center p-2.5 rounded-xl bg-white/5 border border-white/5">
-                <Users size={16} className="text-amber-400 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-stone-300">{vehicle.seats}</p>
-              </div>
-              <div className="text-center p-2.5 rounded-xl bg-white/5 border border-white/5">
-                <IndianRupee size={16} className="text-amber-400 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-stone-300">{vehicle.pricePerKm}/km</p>
-              </div>
-              <div className="text-center p-2.5 rounded-xl bg-white/5 border border-white/5">
-                <Navigation size={16} className="text-amber-400 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-stone-300">{vehicle.transmission}</p>
-              </div>
-            </div>
+    setTimeout(() => {
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+        '_blank'
+      );
+      setSending(false);
+      onClose();
+    }, 400);
+  };
 
-            {/* Features */}
-            <div className="flex flex-wrap gap-2 mb-5">
-              {vehicle.features.map((feat, idx) => (
-                <span key={idx} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/5 text-[11px] text-stone-400 border border-white/5">
-                  <Check size={10} className="text-green-400" /> {feat}
-                </span>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-amber-400 group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
-                View Details <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </span>
-              <span className="text-[11px] text-stone-600">Per-km rate shown</span>
-            </div>
-          </div>
-        </Link>
-      </div>
-    );
-  }
-
-  /* Compact horizontal card (single column, image left, text right — used in 2-col grid) */
   return (
-    <Link
-      href={`/vehicles/${vehicle.id}`}
-      className="group grid grid-cols-[180px_1fr] sm:grid-cols-[220px_1fr] gap-0 rounded-2xl overflow-hidden bg-neutral-900/80 border border-white/5 hover:border-amber-500/20 transition-all hover-lift card-shine"
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      onClick={onClose}
     >
-      {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <Image
-          src={vehicle.img}
-          alt={vehicle.model}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-          sizes="220px"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40" />
-        {vehicle.badge && (
-          <span className={`absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold text-white uppercase tracking-wider ${vehicle.badgeColor}`}>
-            {vehicle.badge}
-          </span>
-        )}
-      </div>
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
 
-      {/* Details */}
-      <div className="p-4 flex flex-col justify-center">
-        <span className="text-[9px] font-semibold text-amber-400 uppercase tracking-widest">{vehicle.type}</span>
-        <h3 className="text-sm sm:text-base font-bold text-stone-100 leading-tight mt-0.5 mb-1.5">{vehicle.model}</h3>
-        <p className="text-xs text-stone-500 leading-relaxed mb-3 line-clamp-2">{vehicle.desc}</p>
+      {/* Modal */}
+      <div
+        className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-neutral-900 border border-white/10 rounded-3xl shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 h-9 w-9 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-stone-400 hover:text-white hover:bg-white/10 transition-all"
+        >
+          <X size={16} />
+        </button>
 
-        {/* Stats */}
-        <div className="flex items-center gap-3 mb-3">
-          <div className="flex items-center gap-1 text-stone-400">
-            <Users size={12} className="text-amber-400" />
-            <span className="text-[11px] font-medium">{vehicle.seats}</span>
-          </div>
-          <div className="flex items-center gap-1 text-stone-400">
-            <IndianRupee size={12} className="text-amber-400" />
-            <span className="text-[11px] font-medium">{vehicle.pricePerKm}/km</span>
-          </div>
-          <div className="flex items-center gap-1 text-stone-400">
-            <Navigation size={12} className="text-amber-400" />
-            <span className="text-[11px] font-medium">{vehicle.transmission}</span>
+        {/* Vehicle header */}
+        <div className="relative h-48 overflow-hidden rounded-t-3xl">
+          <Image
+            src={vehicle.img}
+            alt={vehicle.model}
+            fill
+            className="object-cover"
+            sizes="512px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
+          {vehicle.badge && (
+            <span className={`absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-wider ${vehicle.badgeColor}`}>
+              {vehicle.badge}
+            </span>
+          )}
+          <div className="absolute bottom-4 left-5 right-5">
+            <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest">{vehicle.type}</span>
+            <h3 className="text-xl font-bold text-white">{vehicle.model}</h3>
+            <div className="flex items-center gap-4 mt-1.5">
+              <span className="flex items-center gap-1 text-xs text-stone-300">
+                <Users size={12} className="text-amber-400" /> {vehicle.seats}
+              </span>
+              <span className="flex items-center gap-1 text-xs text-stone-300">
+                <IndianRupee size={12} className="text-amber-400" /> {vehicle.pricePerKm}/km
+              </span>
+            </div>
           </div>
         </div>
 
-        {/* CTA */}
-        <span className="text-xs font-semibold text-amber-400 group-hover:text-amber-300 transition-colors flex items-center gap-1">
-          View Details <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-        </span>
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="p-5 md:p-6 space-y-4">
+          <p className="text-xs text-stone-500 text-center -mt-1 mb-2">
+            Fill in your trip details — we&apos;ll get back instantly via WhatsApp
+          </p>
+
+          {/* Name */}
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+              <User size={12} className="text-amber-400" /> Your Name <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Enter your full name"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+            />
+          </div>
+
+          {/* Pickup Address */}
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+              <MapPin size={12} className="text-amber-400" /> Pickup Address <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="text"
+              name="pickup"
+              required
+              value={formData.pickup}
+              onChange={handleChange}
+              placeholder="e.g. Mysuru Railway Station, Bangalore Airport..."
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+            />
+          </div>
+
+          {/* Date + Members row */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+                <Calendar size={12} className="text-amber-400" /> Date <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="date"
+                name="date"
+                required
+                value={formData.date}
+                onChange={handleChange}
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all [color-scheme:dark]"
+              />
+            </div>
+            <div>
+              <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+                <Users size={12} className="text-amber-400" /> Members <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="number"
+                name="members"
+                required
+                min="1"
+                max="60"
+                value={formData.members}
+                onChange={handleChange}
+                placeholder="e.g. 5"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+              />
+            </div>
+          </div>
+
+          {/* Places to Visit */}
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+              <MapPin size={12} className="text-amber-400" /> Places to Visit <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="text"
+              name="placeToVisit"
+              required
+              value={formData.placeToVisit}
+              onChange={handleChange}
+              placeholder="e.g. Ooty, Coonoor, Mudumalai..."
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+            />
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+              <PhoneCall size={12} className="text-amber-400" /> Phone Number <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="e.g. 9108597154"
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
+            />
+          </div>
+
+          {/* Requirements */}
+          <div>
+            <label className="flex items-center gap-1.5 text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-1.5">
+              <FileText size={12} className="text-amber-400" /> Special Requirements
+            </label>
+            <textarea
+              name="requirements"
+              rows={3}
+              value={formData.requirements}
+              onChange={handleChange}
+              placeholder="Any special needs? e.g. child seat, extra luggage, wheelchair access, specific pickup time..."
+              className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all resize-none"
+            />
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={sending}
+            className="w-full flex items-center justify-center gap-3 py-3.5 rounded-2xl bg-gradient-to-r from-green-600 to-green-700 text-white font-bold text-sm hover:from-green-500 hover:to-green-600 transition-all shadow-lg shadow-green-600/20 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {sending ? (
+              <>
+                <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Sending...
+              </>
+            ) : (
+              <>
+                <MessageCircle size={18} /> Book via WhatsApp
+              </>
+            )}
+          </button>
+
+          <p className="text-[10px] text-stone-600 text-center">
+            By submitting, your details will be sent to our WhatsApp for instant booking confirmation.
+          </p>
+        </form>
       </div>
-    </Link>
+    </div>
   );
 }
 
-/* ─── Component ─── */
-export default function VehiclesPage() {
-  const [activeType, setActiveType] = useState('All');
-  const [activeSeats, setActiveSeats] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+/* ─── Main Page (Same as listing, but auto-opens modal for the ID) ─── */
+export default function VehicleByIdPage() {
+  const params = useParams();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const [selectedVehicle, setSelectedVehicle] = useState<typeof VEHICLES[number] | null>(null);
 
-  const filteredVehicles = VEHICLES.filter((v) => {
-    const matchesType = activeType === 'All' || v.type === activeType;
-    const seatNum = v.seats.replace(/\D/g, '');
-    const matchesSeats = activeSeats === 'All' || seatNum === activeSeats;
-    const matchesSearch = searchQuery === '' ||
-      v.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      v.type.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesType && matchesSeats && matchesSearch;
-  });
+  /* ── Auto-open modal + scroll to card on mount ── */
+  useEffect(() => {
+    const id = Number(params.id);
+    const vehicle = VEHICLES.find((v) => v.id === id);
+    if (!vehicle) return;
+
+    // Small delay so the carousel renders first, then scroll + open modal
+    const timer = setTimeout(() => {
+      // Scroll the specific card into view
+      const cardEl = cardRefs.current.get(id);
+      if (cardEl) {
+        cardEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+      // Then open the booking modal after a brief scroll
+      setTimeout(() => {
+        setSelectedVehicle(vehicle);
+      }, 500);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [params.id]);
+
+  const scroll = useCallback((direction: 'left' | 'right') => {
+    if (!scrollRef.current) return;
+    const scrollAmount = 400;
+    scrollRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  /* ── Highlight border for the active vehicle ── */
+  const activeId = Number(params.id);
 
   return (
     <>
@@ -223,17 +360,19 @@ export default function VehiclesPage() {
       </nav>
 
       {/* ─────────── HERO ─────────── */}
-      <section className="relative pt-28 pb-8 overflow-hidden">
+      <section className="relative pt-28 pb-6 overflow-hidden">
         <div className="grid-pattern absolute inset-0 opacity-30" />
         <div className="absolute top-20 left-1/4 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-stone-500/5 rounded-full blur-3xl animate-morph" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-stone-500/5 rounded-full blur-3xl animate-morph" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 mb-6 text-sm">
             <Link href="/" className="text-stone-500 hover:text-stone-300 transition-colors">Home</Link>
             <span className="text-stone-700">/</span>
-            <span className="text-stone-300">Vehicles</span>
+            <Link href="/vehicles" className="text-stone-500 hover:text-stone-300 transition-colors">Vehicles</Link>
+            <span className="text-stone-700">/</span>
+            <span className="text-stone-300">{VEHICLES.find((v) => v.id === activeId)?.model || 'Vehicle'}</span>
           </div>
 
           {/* Header */}
@@ -247,166 +386,200 @@ export default function VehiclesPage() {
               <span className="text-gradient-warm">Ride</span>
             </h1>
             <p className="text-stone-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-              From comfortable sedans to luxury coaches, we have the perfect vehicle for every trip.
-              Browse our fleet and get a custom quotation via WhatsApp.
+              Browse our fleet, click any vehicle to book instantly. Transparent per-km pricing with no hidden charges.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ─────────── FILTERS ─────────── */}
-      <section className="relative py-6">
+      {/* ─────────── HORIZONTAL VEHICLE CAROUSEL ─────────── */}
+      <section className="relative py-8 md:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-2xl p-4 md:p-6">
-            {/* Search Bar */}
-            <div className="relative mb-4">
-              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search vehicles by name or type..."
-                className="w-full bg-black/40 border border-white/10 rounded-xl pl-11 pr-4 py-3 text-sm text-stone-200 placeholder-stone-600 hover:border-white/20 focus:outline-none focus:border-amber-500/50 transition-all"
-                suppressHydrationWarning
-              />
-            </div>
+          {/* Carousel container */}
+          <div className="relative group/carousel">
+            {/* Left Arrow */}
+            <button
+              onClick={() => scroll('left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 h-12 w-12 flex items-center justify-center rounded-full bg-neutral-900/90 border border-white/10 text-stone-300 hover:text-white hover:border-amber-500/40 hover:bg-neutral-800 transition-all shadow-xl hidden md:flex opacity-0 group-hover/carousel:opacity-100"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft size={20} />
+            </button>
 
-            {/* Type Filters */}
-            <div className="mb-3">
-              <div className="flex items-center gap-2 mb-2">
-                <SlidersHorizontal size={14} className="text-amber-400" />
-                <span className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Vehicle Type</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {VEHICLE_TYPES.map((type) => (
-                  <button
-                    key={type}
-                    onClick={() => setActiveType(type)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                      activeType === type
-                        ? 'bg-amber-500 text-black'
-                        : 'bg-white/5 text-stone-400 hover:bg-white/10 hover:text-stone-200 border border-white/5'
-                    }`}
+            {/* Right Arrow */}
+            <button
+              onClick={() => scroll('right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 h-12 w-12 flex items-center justify-center rounded-full bg-neutral-900/90 border border-white/10 text-stone-300 hover:text-white hover:border-amber-500/40 hover:bg-neutral-800 transition-all shadow-xl hidden md:flex opacity-0 group-hover/carousel:opacity-100"
+              aria-label="Scroll right"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none hidden md:block" />
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none hidden md:block" />
+
+            {/* Scrollable track */}
+            <div
+              ref={scrollRef}
+              className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide py-2 px-1"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {VEHICLES.map((vehicle) => {
+                const isActive = vehicle.id === activeId;
+                return (
+                  <div
+                    key={vehicle.id}
+                    ref={(el) => {
+                      if (el) cardRefs.current.set(vehicle.id, el);
+                    }}
+                    className="snap-start flex-shrink-0 w-[300px] sm:w-[340px] md:w-[380px] cursor-pointer group"
+                    onClick={() => setSelectedVehicle(vehicle)}
                   >
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
+                    <div
+                      className={`relative rounded-2xl overflow-hidden bg-neutral-900/80 transition-all duration-300 hover-lift ${
+                        isActive
+                          ? 'border-2 border-amber-500/60 shadow-lg shadow-amber-500/10'
+                          : 'border border-white/5 group-hover:border-amber-500/30'
+                      }`}
+                    >
+                      {/* Active indicator dot */}
+                      {isActive && (
+                        <div className="absolute top-3 right-3 z-10 h-3 w-3 rounded-full bg-amber-400 animate-pulse shadow-lg shadow-amber-400/50" />
+                      )}
 
-            {/* Seat Filters */}
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <Users size={14} className="text-amber-400" />
-                <span className="text-xs font-semibold text-stone-400 uppercase tracking-wider">Seating Capacity</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {SEAT_FILTERS.map((seats) => (
-                  <button
-                    key={seats}
-                    onClick={() => setActiveSeats(seats)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                      activeSeats === seats
-                        ? 'bg-amber-500 text-black'
-                        : 'bg-white/5 text-stone-400 hover:bg-white/10 hover:text-stone-200 border border-white/5'
-                    }`}
-                  >
-                    {seats === 'All' ? 'All Seats' : `${seats} Seaters`}
-                  </button>
-                ))}
-              </div>
-            </div>
+                      {/* Vehicle Image */}
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={vehicle.img}
+                          alt={vehicle.model}
+                          fill
+                          className={`object-cover transition-transform duration-500 ${isActive ? 'scale-100' : 'group-hover:scale-105'}`}
+                          sizes="(max-width:640px) 300px, (max-width:768px) 340px, 380px"
+                        />
+                        {/* Overlay gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-            {/* Results count */}
-            <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
-              <p className="text-xs text-stone-500">
-                Showing <span className="text-amber-400 font-semibold">{filteredVehicles.length}</span> vehicle{filteredVehicles.length !== 1 ? 's' : ''}
-              </p>
-              {(activeType !== 'All' || activeSeats !== 'All' || searchQuery !== '') && (
-                <button
-                  onClick={() => { setActiveType('All'); setActiveSeats('All'); setSearchQuery(''); }}
-                  className="text-xs text-amber-400 hover:text-amber-300 font-medium transition-colors"
+                        {/* Badge */}
+                        {vehicle.badge && (
+                          <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-wider ${vehicle.badgeColor}`}>
+                            {vehicle.badge}
+                          </span>
+                        )}
+
+                        {/* Click hint */}
+                        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="h-8 w-8 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
+                            <MessageCircle size={14} className="text-white" />
+                          </div>
+                        </div>
+
+                        {/* Bottom info overlay */}
+                        <div className="absolute bottom-3 left-4 right-4">
+                          <span className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest">{vehicle.type}</span>
+                          <h3 className="text-lg font-bold text-white leading-tight mt-0.5">{vehicle.model}</h3>
+                        </div>
+                      </div>
+
+                      {/* Card footer */}
+                      <div className="p-4 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="flex items-center gap-1 text-xs text-stone-400">
+                            <Users size={12} className="text-amber-400" /> {vehicle.seats}
+                          </span>
+                          <span className="flex items-center gap-1 text-xs text-stone-400">
+                            <IndianRupee size={12} className="text-amber-400" /> {vehicle.pricePerKm}/km
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-semibold text-amber-400 group-hover:text-amber-300 transition-colors flex items-center gap-1">
+                          {isActive ? 'Selected' : 'Book Now'}
+                          <ChevronRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Scroll hint for mobile */}
+          <div className="flex items-center justify-center gap-2 mt-5 md:hidden">
+            <div className="h-1 w-8 rounded-full bg-amber-500/40" />
+            <div className="h-1 w-1 rounded-full bg-white/20" />
+            <div className="h-1 w-1 rounded-full bg-white/20" />
+            <span className="text-[10px] text-stone-600 ml-2">Swipe to explore →</span>
+          </div>
+
+          {/* Vehicle count pills */}
+          <div className="flex flex-wrap justify-center gap-2 mt-6">
+            {['Sedan', 'MUV', 'Tempo Traveller', 'Mini Bus', 'Bus'].map((type) => {
+              const count = VEHICLES.filter((v) => v.type.includes(type)).length;
+              return (
+                <span
+                  key={type}
+                  className="px-3 py-1 rounded-full bg-white/5 border border-white/5 text-[11px] text-stone-500"
                 >
-                  Clear Filters
-                </button>
-              )}
-            </div>
+                  {count} {type}{count !== 1 ? 's' : ''}
+                </span>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ─────────── VEHICLE LIST (Alternating 1/2 layout) ─────────── */}
-      <section className="relative pb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          {filteredVehicles.length > 0 ? (
-            <div className="space-y-6">
-              {/* Group vehicles into rows: 1 card, then 2 cards, repeating */}
-              {Array.from({ length: Math.ceil(filteredVehicles.length / 3) }, (_, rowIdx) => {
-                const rowStart = rowIdx * 3;
-                const fullVehicle = filteredVehicles[rowStart];
-                const pairA = filteredVehicles[rowStart + 1];
-                const pairB = filteredVehicles[rowStart + 2];
-                return (
-                  <React.Fragment key={rowIdx}>
-                    {/* Full-width card */}
-                    {fullVehicle && (
-                      <div className="w-full">
-                        <VehicleCard vehicle={fullVehicle} index={rowStart} />
-                      </div>
-                    )}
-                    {/* 2-column pair */}
-                    {pairA && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <VehicleCard vehicle={pairA} index={rowStart + 1} />
-                        {pairB ? (
-                          <VehicleCard vehicle={pairB} index={rowStart + 2} />
-                        ) : (
-                          <div className="hidden md:flex rounded-2xl bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-500/20 p-6 flex-col items-center justify-center text-center">
-                            <MessageCircle size={28} className="text-amber-400 mb-3" />
-                            <h4 className="text-sm font-bold text-stone-200 mb-1">Need Help Choosing?</h4>
-                            <p className="text-xs text-stone-500 mb-4">Our experts will help you pick the right vehicle</p>
-                            <a
-                              href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20RRM%20Holidays!%20I%20need%20help%20choosing%20a%20vehicle.`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-green-600 to-green-700 text-white text-xs font-semibold hover:from-green-500 hover:to-green-600 transition-all"
-                            >
-                              <MessageCircle size={12} /> Chat on WhatsApp
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
+      {/* ─────────── QUICK PRICING TABLE ─────────── */}
+      <section className="relative py-10 md:py-14">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-xl md:text-2xl font-extrabold text-stone-200 mb-2">
+              Transparent <span className="text-gradient-warm">Per-Km Pricing</span>
+            </h2>
+            <p className="text-sm text-stone-500">No hidden charges. What you see is what you pay.</p>
+          </div>
+
+          <div className="bg-neutral-900/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden">
+            {/* Table header */}
+            <div className="grid grid-cols-4 gap-2 px-4 md:px-6 py-3 bg-white/5 border-b border-white/10">
+              <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">Vehicle</span>
+              <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-center">Type</span>
+              <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-center">Seats</span>
+              <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-right">Per Km</span>
             </div>
-          ) : (
-            /* No results */
-            <div className="text-center py-20">
-              <Car size={48} className="text-stone-700 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-stone-300 mb-2">No Vehicles Found</h3>
-              <p className="text-sm text-stone-500 mb-6">Try adjusting your filters or search query to find the perfect vehicle.</p>
+            {/* Table rows */}
+            {VEHICLES.map((v) => (
               <button
-                onClick={() => { setActiveType('All'); setActiveSeats('All'); setSearchQuery(''); }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold text-sm hover:from-amber-400 hover:to-amber-500 transition-all"
+                key={v.id}
+                onClick={() => setSelectedVehicle(v)}
+                className={`grid grid-cols-4 gap-2 px-4 md:px-6 py-3 border-b border-white/5 hover:bg-white/5 transition-colors w-full text-left group/row ${
+                  v.id === activeId ? 'bg-amber-500/5 border-l-2 border-l-amber-500' : ''
+                }`}
               >
-                Clear All Filters
+                <span className={`text-sm font-medium truncate transition-colors ${v.id === activeId ? 'text-amber-400' : 'text-stone-300 group-hover/row:text-amber-400'}`}>
+                  {v.model}
+                </span>
+                <span className="text-xs text-stone-500 text-center self-center">{v.type}</span>
+                <span className="text-xs text-stone-500 text-center self-center">{v.seats}</span>
+                <span className="text-sm font-bold text-amber-400 text-right self-center">{v.pricePerKm}</span>
               </button>
-            </div>
-          )}
+            ))}
+          </div>
+
+          <p className="text-[11px] text-stone-600 text-center mt-4">
+            * Prices are per kilometre. Minimum km charges apply. Driver allowance, toll &amp; parking extra as applicable.
+          </p>
         </div>
       </section>
 
       {/* ─────────── WHY RRM FLEET ─────────── */}
-      <section className="relative py-12 md:py-16">
+      <section className="relative py-10 md:py-14">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-extrabold text-stone-200 mb-3">
               Why Travel With <span className="text-gradient-warm">RRM Holidays</span>?
             </h2>
             <p className="text-sm text-stone-500 max-w-xl mx-auto">
-              Every vehicle comes with professional drivers, comprehensive insurance, and 24/7 support throughout your journey.
+              Every vehicle comes with professional drivers, comprehensive insurance, and 24/7 support.
             </p>
           </div>
 
@@ -433,9 +606,9 @@ export default function VehiclesPage() {
       <section className="relative pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-500/20 rounded-2xl p-6 md:p-8 text-center">
-            <h3 className="text-xl font-bold text-stone-200 mb-2">Need Help Choosing the Right Vehicle?</h3>
+            <h3 className="text-xl font-bold text-stone-200 mb-2">Can&apos;t Decide? Talk to Us!</h3>
             <p className="text-sm text-stone-400 mb-6 max-w-lg mx-auto">
-              Our travel experts in Mysuru are available 24/7 to help you pick the perfect vehicle for your trip based on group size, route, and travel preferences.
+              Our travel experts in Mysuru are available 24/7 to help you pick the perfect vehicle for your trip.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
@@ -459,6 +632,14 @@ export default function VehiclesPage() {
 
       {/* ─────────── FOOTER ─────────── */}
       <footer />
+
+      {/* ─────────── BOOKING MODAL ─────────── */}
+      {selectedVehicle && (
+        <BookingModal
+          vehicle={selectedVehicle}
+          onClose={() => setSelectedVehicle(null)}
+        />
+      )}
     </>
   );
 }

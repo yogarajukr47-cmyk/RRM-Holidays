@@ -114,10 +114,10 @@ const CATEGORY_FILTERS = [
 ];
 
 const RATING_STATS = [
-  { platform: 'Google Reviews', rating: '4.8', total: '1,200+', icon: '⭐', color: 'text-amber-400' },
-  { platform: 'TripAdvisor', rating: '4.7', total: '800+', icon: '🦉', color: 'text-cyan-400' },
-  { platform: 'Facebook', rating: '4.9', total: '600+', icon: '👍', color: 'text-blue-400' },
-  { platform: 'JustDial', rating: '4.8', total: '500+', icon: '📞', color: 'text-green-400' },
+  { platform: 'Google Reviews', rating: '4.8', total: '100+', icon: '⭐', color: 'text-amber-400' },
+  { platform: 'TripAdvisor', rating: '4.7', total: '100+', icon: '🦉', color: 'text-cyan-400' },
+  { platform: 'Facebook', rating: '4.9', total: '100+', icon: '👍', color: 'text-blue-400' },
+  { platform: 'JustDial', rating: '4.8', total: '100+', icon: '📞', color: 'text-green-400' },
 ];
 
 function getCategory(review: typeof REVIEWS[0]): string {

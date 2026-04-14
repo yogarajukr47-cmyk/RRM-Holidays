@@ -32,8 +32,8 @@ const WHATSAPP_NUMBER = '919108597154';
 
 const LANGUAGES = [
   { code: 'en', label: 'English', native: 'English' },
-  { code: 'hi', label: 'Hindi', native: 'हिंदी' },
   { code: 'kn', label: 'Kannada', native: 'ಕನ್ನಡ' },
+  { code: 'hi', label: 'Hindi', native: 'हिंदी' },
   { code: 'ta', label: 'Tamil', native: 'தமிழ்' },
   { code: 'ml', label: 'Malayalam', native: 'മലയാളಂ' },
 ] as const;

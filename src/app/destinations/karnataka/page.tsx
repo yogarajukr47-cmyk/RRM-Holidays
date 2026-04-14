@@ -28,15 +28,11 @@ function getCallLink() {
 export default function KarnatakaPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [visiblePlaces, setVisiblePlaces] = useState(12);
-
-  const categories = ['All', ...Array.from(new Set(PLACES.map(p => p.category)))];
+  const [visiblePlaces, setVisiblePlaces] = useState(999);
 
   const filteredPlaces = PLACES.filter(p => {
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.desc.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
-    return matchesSearch && matchesCategory;
+    return matchesSearch;
   });
 
   return (
@@ -85,7 +81,7 @@ export default function KarnatakaPage() {
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl animate-float" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center pt-24 pb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-stone-300 mb-6">
-            <Sparkles size={14} className="text-amber-400" /> 53+ Places to Explore
+            <Sparkles size={14} className="text-amber-400" /> {PLACES.length}+ Places to Explore
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight tracking-tight mb-4">
             Discover <span className="text-gradient-warm">Karnataka</span>
@@ -104,7 +100,7 @@ export default function KarnatakaPage() {
         </div>
       </section>
 
-      {/* Search & Filter */}
+      {/* Search & Filter — Only "All" */}
       <section id="places" className="py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="glass rounded-2xl p-4 md:p-6">
@@ -120,15 +116,7 @@ export default function KarnatakaPage() {
                 />
               </div>
               <div className="flex flex-wrap gap-2">
-                {categories.map(cat => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${selectedCategory === cat ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black' : 'bg-white/5 text-stone-400 hover:bg-white/10 hover:text-white'}`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+                <button className="px-4 py-2 rounded-full text-xs font-semibold bg-gradient-to-r from-amber-500 to-amber-600 text-black">All</button>
               </div>
             </div>
           </div>
@@ -173,13 +161,6 @@ export default function KarnatakaPage() {
               </div>
             ))}
           </div>
-          {visiblePlaces < filteredPlaces.length && (
-            <div className="text-center mt-10">
-              <button onClick={() => setVisiblePlaces(prev => prev + 12)} className="px-8 py-3 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 text-black font-semibold hover:from-amber-400 hover:to-amber-500 transition-all inline-flex items-center gap-2">
-                Load More Places <ArrowDown size={16} />
-              </button>
-            </div>
-          )}
         </div>
       </section>
 
