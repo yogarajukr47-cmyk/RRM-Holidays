@@ -1072,7 +1072,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
+         {/* FOOTER */}
       <footer className="relative border-t border-white/5 py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
@@ -1080,7 +1080,7 @@ export default function Home() {
               <div className="flex items-center gap-2 mb-4"><Image src="/logo.png" alt="RRM Holidays" width={32} height={32} className="h-8 w-auto rounded-lg object-contain" loading="lazy" /><span className="text-lg font-bold text-stone-100">RRM <span className="text-amber-400">Holidays</span></span></div>
               <p className="text-sm text-stone-500 leading-relaxed mb-4">Premium South India travel experiences. Based in Mysuru, serving 6 states with passion and expertise.</p>
               <div className="flex items-center gap-3">
-                <a href="https://instagram.com/rrmholidays" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-pink-400 transition-colors"><Instagram size={18} /></a>
+                <a href="https://www.instagram.com/rrm_holidays?igsh=aGdydHczaGY3bHhs&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-pink-400 transition-colors"><Instagram size={18} /></a>
                 <a href="https://youtube.com/@rrmholidays" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-red-400 transition-colors"><Youtube size={18} /></a>
                 <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-green-400 transition-colors"><MessageCircle size={18} /></a>
               </div>
@@ -1092,6 +1092,8 @@ export default function Home() {
           <div className="border-t border-white/5 pt-6 text-center"><p className="text-xs text-stone-600">&copy; {new Date().getFullYear()} RRM Holidays. All rights reserved. Made with ❤️ in Mysuru, India.</p></div>
         </div>
       </footer>
+
+      
 
       {/* BACK TO TOP */}
       {backToTop && (<button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-10 h-10 sm:w-11 sm:h-11 rounded-full glass flex items-center justify-center text-stone-400 hover:text-amber-400 transition-all active:scale-90" aria-label="Back to top"><ChevronUp size={18} /></button>)}
