@@ -1105,22 +1105,7 @@ export default function Home() {
       {/* BACK TO TOP */}
       {backToTop && (<button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-10 h-10 sm:w-11 sm:h-11 rounded-full glass flex items-center justify-center text-stone-400 hover:text-amber-400 transition-all active:scale-90" aria-label="Back to top"><ChevronUp size={18} /></button>)}
 
-      {/* INACTIVITY POPUP */}
-      {showInactivity && (
-        <div className="inactivity-popup-backdrop" onClick={() => setShowInactivity(false)}>
-          <div className="inactivity-popup" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setShowInactivity(false)} className="absolute top-4 right-4 text-stone-500 hover:text-white"><X size={18} /></button>
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mx-auto mb-4"><MessageCircle size={28} className="text-amber-400" /></div>
-              <h3 className="text-xl font-bold text-stone-100 mb-2">Need help planning your trip?</h3>
-              <p className="text-sm text-stone-400 mb-6">Our travel experts are ready to create the perfect itinerary for you — completely free!</p>
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi! I'd like help planning a South India trip.")}`} target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 bg-green-600 text-white font-semibold py-3 rounded-xl hover:bg-green-500 transition-all ripple-btn animate-glow-pulse-green mb-3"><MessageCircle size={16} /> Chat on WhatsApp</a>
-              <a href="#destinations" onClick={() => setShowInactivity(false)} className="text-sm text-amber-400 hover:text-amber-300 transition-colors">Browse Destinations</a>
-            </div>
-          </div>
-        </div>
-      )}
-
+      
       {/* TOAST NOTIFICATIONS */}
       <div className="fixed bottom-20 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-xs z-[9999] flex flex-col gap-2">
         {toasts.map((t) => (<div key={t.id} className="toast glass rounded-xl px-4 py-3 text-sm text-stone-200 border border-white/10 shadow-xl">{t.msg}</div>))}
