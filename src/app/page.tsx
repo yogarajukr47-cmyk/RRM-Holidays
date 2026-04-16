@@ -396,7 +396,7 @@ export default function Home() {
 
   /* ═════════════════════════════ RENDER ═══════════════════════════ */
   return (
-    <div className="pb-mobile-bar">
+    <div>
       <div ref={cursorGlowRef} className="cursor-glow" />
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
