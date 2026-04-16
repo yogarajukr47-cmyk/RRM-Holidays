@@ -665,7 +665,7 @@ export default function Home() {
               </div>
               <div className="reveal stagger-3 space-y-4 text-stone-400 leading-relaxed mb-8">
                 <p>RRM Holidays was founded with a simple vision — to share the beauty, culture and warmth of South India with travellers from across the world. Based in the royal city of Mysuru, we bring deep local knowledge and genuine hospitality to every tour.</p>
-                <p>With 9+ years of experience and operations across 6 South Indian states, we&apos;ve helped over 5000 travellers create unforgettable memories. From misty hills to golden beaches, we craft each journey with passion and precision.</p>
+                <p>With  experience and operations across 6 South Indian states, we&apos;ve helped over 5000 travellers create unforgettable memories. From misty hills to golden beaches, we craft each journey with passion and precision.</p>
               </div>
               <div className="reveal stagger-4 grid grid-cols-2 gap-3 mb-8">
                 {[
@@ -1080,7 +1080,14 @@ export default function Home() {
               <div className="flex items-center gap-2 mb-4"><Image src="/logo.png" alt="RRM Holidays" width={32} height={32} className="h-8 w-auto rounded-lg object-contain" loading="lazy" /><span className="text-lg font-bold text-stone-100">RRM <span className="text-amber-400">Holidays</span></span></div>
               <p className="text-sm text-stone-500 leading-relaxed mb-4">Premium South India travel experiences. Based in Mysuru, serving 6 states with passion and expertise.</p>
               <div className="flex items-center gap-3">
-                <a href="https://www.instagram.com/rrm_holidays?igsh=aGdydHczaGY3bHhs&utm_source=qr" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-pink-400 transition-colors"><Instagram size={18} /></a>
+                <a 
+  href="https://www.instagram.com/rrmholidays?igsh=MXg0YmNmc3Z4YTAzZA==" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  className="text-stone-500 hover:text-pink-400 transition-colors"
+>
+  <Instagram size={18} />
+</a>
                 <a href="https://youtube.com/@rrmholidays" target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-red-400 transition-colors"><Youtube size={18} /></a>
                 <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="text-stone-500 hover:text-green-400 transition-colors"><MessageCircle size={18} /></a>
               </div>
@@ -1119,7 +1126,7 @@ export default function Home() {
         {toasts.map((t) => (<div key={t.id} className="toast glass rounded-xl px-4 py-3 text-sm text-stone-200 border border-white/10 shadow-xl">{t.msg}</div>))}
       </div>
 
-      {/* BOOKING DIALOG */}
+                {/* BOOKING DIALOG */}
       <Dialog open={bookingOpen} onOpenChange={setBookingOpen}>
         <DialogContent className="bg-neutral-950 border-white/10 max-w-lg">
           <DialogHeader><DialogTitle className="text-stone-100">Quick Booking</DialogTitle></DialogHeader>
@@ -1135,6 +1142,48 @@ export default function Home() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* ✅ FIXED MOBILE BOTTOM NAVIGATION BAR ✅ */}
+      {/* This bar is FIXED at the bottom, has high Z-Index to sit on top, and uses touch-manipulation for fast tapping */}
+      <div className="fixed bottom-0 left-0 right-0 z-[60] bg-neutral-900/95 backdrop-blur-xl border-t border-white/10 sm:hidden flex justify-between items-center px-6 py-3 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
+        
+        {/* CALL BUTTON */}
+        <a 
+          href="tel:+919108597154" 
+          className="flex flex-col items-center justify-center gap-1 w-16 text-stone-400 hover:text-amber-400 active:text-amber-300 transition-all touch-manipulation group"
+        >
+          <div className="p-2 rounded-full bg-neutral-800 group-hover:bg-neutral-700 transition-colors">
+            <Phone size={22} strokeWidth={2.5} />
+          </div>
+          <span className="text-[10px] font-bold tracking-wide">CALL</span>
+        </a>
+
+        {/* WHATSAPP BUTTON (Floating Center) */}
+        <a 
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi RRM Holidays! I need help planning a trip.")}`} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex flex-col items-center justify-center gap-1 -mt-8 touch-manipulation"
+        >
+          <div className="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-white shadow-[0_4px_15px_rgba(22,163,74,0.4)] border-4 border-neutral-900 transition-transform active:scale-95">
+            <MessageCircle size={32} strokeWidth={2.5} fill="white" className="text-white" />
+          </div>
+          <span className="text-[11px] font-bold text-green-500 mt-1 tracking-wide">WHATSAPP</span>
+        </a>
+
+        {/* AI CHAT BUTTON */}
+        <a 
+          href="#ai-tools" 
+          className="flex flex-col items-center justify-center gap-1 w-16 text-stone-400 hover:text-blue-400 active:text-blue-300 transition-all touch-manipulation group"
+        >
+          <div className="p-2 rounded-full bg-neutral-800 group-hover:bg-neutral-700 transition-colors">
+            <Bot size={22} strokeWidth={2.5} />
+          </div>
+          <span className="text-[10px] font-bold tracking-wide">AI CHAT</span>
+        </a>
+
+      </div>
+
     </div>
   );
 }

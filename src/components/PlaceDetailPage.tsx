@@ -11,18 +11,18 @@ const CALL_NUMBER = '+919108597154';
 
 /* ─── Vehicle Data ─── */
 const VEHICLES = [
-  { id: 1, type: 'Sedan', model: 'Toyota Etios', img: '/sedan-etios.jpg', seats: '4 Seaters', seatNum: 4, pricePerKm: '₹12', badge: null, badgeColor: '', features: ['AC', 'Music System', 'Comfortable Seats', 'Boot Space'], desc: 'Perfect for small family trips and city tours. Spacious boot, comfortable interiors, and smooth highway performance.', ac: 'Full AC', luggage: '2 large + 2 small bags', transmission: 'Automatic' },
-  { id: 2, type: 'Sedan', model: 'Maruti Swift Dzire', img: '/swift-dzire.jpg', seats: '4 Seaters', seatNum: 4, pricePerKm: '₹12', badge: 'Popular', badgeColor: 'bg-amber-500', features: ['AC', 'Music System', 'Comfortable Seats', 'Fuel Efficient'], desc: 'Compact sedan ideal for city rides and short trips. Known for exceptional fuel efficiency and reliable performance.', ac: 'Full AC', luggage: '1 large + 2 small bags', transmission: 'Automatic' },
-  { id: 3, type: 'MUV', model: 'Toyota Innova', img: '/innova-muv.jpg', seats: '7 Seaters', seatNum: 7, pricePerKm: '₹18', badge: null, badgeColor: '', features: ['Spacious', 'AC', 'Music System', 'Luggage Space'], desc: 'Ideal for family vacations and group travel. The most trusted MUV in India with ample cabin space and powerful AC.', ac: 'Dual Zone AC', luggage: '4 large + hand luggage', transmission: 'Automatic' },
-  { id: 4, type: 'Premium MUV', model: 'Innova Crysta', img: '/innova-crysta.jpg', seats: '7 Seaters', seatNum: 7, pricePerKm: '₹18', badge: 'Premium', badgeColor: 'bg-violet-500', features: ['Premium AC', 'Luxury Seats', 'Entertainment', 'Captain Seats'], desc: 'Premium comfort for luxury travel. Captain seats with armrests, touchscreen entertainment, and rear AC vents.', ac: 'Rear + Captain AC', luggage: '4 large + hand luggage', transmission: 'Automatic' },
-  { id: 10, type: 'Tempo Traveller', model: 'Force Urbania 10 Seater', img: '/urbania-10.jpg', seats: '10 Seaters', seatNum: 10, pricePerKm: '₹33', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Compact yet spacious 10-seater Urbania, perfect for medium groups exploring South India with modern comfort.', ac: 'Powerful AC', luggage: 'Rear cabin + overhead', transmission: 'Manual' },
-  { id: 11, type: 'Tempo Traveller', model: 'Force Urbania 13 Seater', img: '/urbania-13.jpg', seats: '13 Seaters', seatNum: 13, pricePerKm: '₹36', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Versatile 13-seater Urbania, a crowd favourite for family trips, temple tours, and weekend getaways.', ac: 'Rear + Overhead AC', luggage: 'Rear cabin + overhead', transmission: 'Manual' },
-  { id: 5, type: 'Tempo Traveller', model: 'Force Tempo Traveller 12 Seater', img: '/tempo-traveller.jpg', seats: '12 Seaters', seatNum: 12, pricePerKm: '₹21', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Best for medium groups, corporate trips and family outings with pushback reclining seats and powerful AC.', ac: 'Powerful AC', luggage: 'Overhead + rear cabin', transmission: 'Manual' },
-  { id: 12, type: 'Tempo Traveller', model: 'Force Urbania 16 Seater', img: '/urbania-16.jpg', seats: '16 Seaters', seatNum: 16, pricePerKm: '₹39', badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Extra Luggage'], desc: 'Largest Force Urbania variant with 16 comfortable pushback seats for extended family and corporate trips.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', transmission: 'Manual' },
-  { id: 6, type: 'Mini Bus', model: '21 Seater Mini Bus', img: '/mini-bus.jpg', seats: '21 Seaters', seatNum: 21, pricePerKm: '₹30', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Best for large groups, weddings and corporate events with comfortable pushback seating and individual AC vents.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', transmission: 'Manual' },
-  { id: 7, type: 'Bus', model: '25 Seater Bus', img: '/bus-25seater.jpg', seats: '25 Seaters', seatNum: 25, pricePerKm: '₹35', badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'PA System'], desc: 'Ideal for large groups, school trips and corporate outings with well-maintained pushback seats.', ac: 'Full AC', luggage: 'Under-seat + separate hold', transmission: 'Manual' },
-  { id: 8, type: 'Bus', model: '33 Seater Bus', img: '/bus-33seater.jpg', seats: '33 Seaters', seatNum: 33, pricePerKm: '₹38', badge: null, badgeColor: '', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System'], desc: 'Spacious bus for pilgrimage tours and large group travel with recliner seats and ample legroom.', ac: 'Full AC', luggage: 'Under-seat + separate hold', transmission: 'Manual' },
-  { id: 9, type: 'Luxury Bus', model: '50 Seater Luxury Coach', img: '/bus-50seater.jpg', seats: '50 Seaters', seatNum: 50, pricePerKm: '₹55', badge: 'Luxury', badgeColor: 'bg-cyan-500', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System', 'WiFi'], desc: 'Luxury Volvo coach for very large groups with premium recliner seats, dual-zone AC, onboard WiFi.', ac: 'Dual Zone AC', luggage: 'Large under-belly + overhead', transmission: 'Automatic' },
+  { id: 1, type: 'Sedan', model: 'Toyota Etios', img: '/sedan-etios.jpg', seats: '4 Seaters', seatNum: 4,badge: null, badgeColor: '', features: ['AC', 'Music System', 'Comfortable Seats', 'Boot Space'], desc: 'Perfect for small family trips and city tours. Spacious boot, comfortable interiors, and smooth highway performance.', ac: 'Full AC', luggage: '2 large + 2 small bags', transmission: 'Automatic' },
+  { id: 2, type: 'Sedan', model: 'Maruti Swift Dzire', img: '/swift-dzire.jpg', seats: '4 Seaters', seatNum: 4, badge: 'Popular', badgeColor: 'bg-amber-500', features: ['AC', 'Music System', 'Comfortable Seats', 'Fuel Efficient'], desc: 'Compact sedan ideal for city rides and short trips. Known for exceptional fuel efficiency and reliable performance.', ac: 'Full AC', luggage: '1 large + 2 small bags', transmission: 'Automatic' },
+  { id: 3, type: 'MUV', model: 'Toyota Innova', img: '/innova-muv.jpg', seats: '7 Seaters', seatNum: 7, badge: null, badgeColor: '', features: ['Spacious', 'AC', 'Music System', 'Luggage Space'], desc: 'Ideal for family vacations and group travel. The most trusted MUV in India with ample cabin space and powerful AC.', ac: 'Dual Zone AC', luggage: '4 large + hand luggage', transmission: 'Automatic' },
+  { id: 4, type: 'Premium MUV', model: 'Innova Crysta', img: '/innova-crysta.jpg', seats: '7 Seaters', seatNum: 7, badge: 'Premium', badgeColor: 'bg-violet-500', features: ['Premium AC', 'Luxury Seats', 'Entertainment', 'Captain Seats'], desc: 'Premium comfort for luxury travel. Captain seats with armrests, touchscreen entertainment, and rear AC vents.', ac: 'Rear + Captain AC', luggage: '4 large + hand luggage', transmission: 'Automatic' },
+  { id: 10, type: 'Tempo Traveller', model: 'Force Urbania 10 Seater', img: '/urbania-10.jpg', seats: '10 Seaters', seatNum: 10, badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Compact yet spacious 10-seater Urbania, perfect for medium groups exploring South India with modern comfort.', ac: 'Powerful AC', luggage: 'Rear cabin + overhead', transmission: 'Manual' },
+  { id: 11, type: 'Tempo Traveller', model: 'Force Urbania 13 Seater', img: '/urbania-13.jpg', seats: '13 Seaters', seatNum: 13, badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Versatile 13-seater Urbania, a crowd favourite for family trips, temple tours, and weekend getaways.', ac: 'Rear + Overhead AC', luggage: 'Rear cabin + overhead', transmission: 'Manual' },
+  { id: 5, type: 'Tempo Traveller', model: 'Force Tempo Traveller 12 Seater', img: '/tempo-traveller.jpg', seats: '12 Seaters', seatNum: 12, badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Ample Luggage'], desc: 'Best for medium groups, corporate trips and family outings with pushback reclining seats and powerful AC.', ac: 'Powerful AC', luggage: 'Overhead + rear cabin', transmission: 'Manual' },
+  { id: 12, type: 'Tempo Traveller', model: 'Force Urbania 16 Seater', img: '/urbania-16.jpg', seats: '16 Seaters', seatNum: 16, badge: 'New', badgeColor: 'bg-emerald-500', features: ['Pushback Seats', 'AC', 'Music System', 'Extra Luggage'], desc: 'Largest Force Urbania variant with 16 comfortable pushback seats for extended family and corporate trips.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', transmission: 'Manual' },
+  { id: 6, type: 'Mini Bus', model: '21 Seater Mini Bus', img: '/mini-bus.jpg', seats: '21 Seaters', seatNum: 21, badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'Large Luggage'], desc: 'Best for large groups, weddings and corporate events with comfortable pushback seating and individual AC vents.', ac: 'Rear + Overhead AC', luggage: 'Separate boot + cabin', transmission: 'Manual' },
+  { id: 7, type: 'Bus', model: '25 Seater Bus', img: '/bus-25seater.jpg', seats: '25 Seaters', seatNum: 25, badge: null, badgeColor: '', features: ['Pushback Seats', 'AC', 'Music System', 'PA System'], desc: 'Ideal for large groups, school trips and corporate outings with well-maintained pushback seats.', ac: 'Full AC', luggage: 'Under-seat + separate hold', transmission: 'Manual' },
+  { id: 8, type: 'Bus', model: '33 Seater Bus', img: '/bus-33seater.jpg', seats: '33 Seaters', seatNum: 33, badge: null, badgeColor: '', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System'], desc: 'Spacious bus for pilgrimage tours and large group travel with recliner seats and ample legroom.', ac: 'Full AC', luggage: 'Under-seat + separate hold', transmission: 'Manual' },
+  { id: 9, type: 'Luxury Bus', model: '50 Seater Luxury Coach', img: '/bus-50seater.jpg', seats: '50 Seaters', seatNum: 50, badge: 'Luxury', badgeColor: 'bg-cyan-500', features: ['Recliner Seats', 'AC', 'Entertainment', 'PA System', 'WiFi'], desc: 'Luxury Volvo coach for very large groups with premium recliner seats, dual-zone AC, onboard WiFi.', ac: 'Dual Zone AC', luggage: 'Large under-belly + overhead', transmission: 'Automatic' },
 ];
 
 const ACCENT_COLORS: Record<string, { bg: string; border: string; text: string; gradient: string; lightBg: string; hoverBorder: string }> = {
@@ -142,7 +142,12 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
   const callLink = `tel:${CALL_NUMBER}`;
 
   const currentIndex = state.places.findIndex(p => p.slug === place.slug);
-  const nearbyPlaces = state.places.filter((_, i) => i !== currentIndex).sort(() => Math.random() - 0.5).slice(0, 3);
+  
+  // ✅ FIXED: Changed random sort to stable alphabetical sort to prevent hydration error
+  const nearbyPlaces = state.places
+    .filter((_, i) => i !== currentIndex)
+    .sort((a, b) => a.name.localeCompare(b.name)) 
+    .slice(0, 3);
 
   const scroll = useCallback((direction: 'left' | 'right') => {
     if (!scrollRef.current) return;
@@ -251,12 +256,12 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
                 <div className="mt-6 pt-4 border-t border-white/5">
                   <h4 className="text-sm font-semibold text-stone-300 mb-2">Our Fleet for {place.name}</h4>
                   <div className="space-y-2 text-xs text-stone-400">
-                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Etios / Dzire</span><span className="text-amber-400 font-semibold">₹12/km</span></div>
-                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Innova</span><span className="text-amber-400 font-semibold">₹18/km</span></div>
-                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Innova Crysta</span><span className="text-amber-400 font-semibold">₹20/km</span></div>
-                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Tempo Traveller</span><span className="text-amber-400 font-semibold">₹22/km</span></div>
-                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Mini Bus (21)</span><span className="text-amber-400 font-semibold">₹32/km</span></div>
-                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Bus (25/33/50)</span><span className="text-amber-400 font-semibold">₹36-52/km</span></div>
+                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Etios / Dzire</span><span className="text-amber-400 font-semibold"> </span></div>
+                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Innova</span><span className="text-amber-400 font-semibold"></span></div>
+                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Innova Crysta</span><span className="text-amber-400 font-semibold"></span></div>
+                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Tempo Traveller</span><span className="text-amber-400 font-semibold"></span></div>
+                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Mini Bus (21)</span><span className="text-amber-400 font-semibold"></span></div>
+                    <div className="flex justify-between p-2 rounded-lg bg-white/[0.03]"><span>Bus (25/33/50)</span><span className="text-amber-400 font-semibold"></span></div>
                   </div>
                   <a href="#vehicle-section" className="mt-3 block text-center text-xs font-semibold text-amber-400 hover:underline">Book any vehicle ↓</a>
                 </div>
@@ -324,8 +329,7 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
                 <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">Vehicle</span>
                 <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-center">Type</span>
                 <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-center">Seats</span>
-                <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider text-right">Per Km</span>
-              </div>
+                             </div>
               {VEHICLES.map((v) => (
                 <button key={v.id} onClick={() => setSelectedVehicle(v)} className="grid grid-cols-4 gap-2 px-4 md:px-6 py-3 border-b border-white/5 hover:bg-white/5 transition-colors w-full text-left group/row">
                   <span className="text-sm font-medium truncate text-stone-300 group-hover/row:text-amber-400 transition-colors">{v.model}</span>
@@ -335,8 +339,7 @@ export default function PlaceDetailPage({ state, place, prevPlace, nextPlace }: 
                 </button>
               ))}
             </div>
-            <p className="text-[11px] text-stone-600 text-center mt-4">* Prices are per kilometre. Minimum km charges apply. Driver allowance, toll &amp; parking extra as applicable.</p>
-          </div>
+                      </div>
 
           {/* Why RRM */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
