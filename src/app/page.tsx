@@ -400,22 +400,7 @@ export default function Home() {
       <div ref={cursorGlowRef} className="cursor-glow" />
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-      {/* FLOATING SOCIAL SIDEBAR */}
-      <div className={`fixed left-3 sm:left-4 top-1/2 -translate-y-1/2 z-[55] flex flex-col gap-2.5 transition-all duration-500 ${floatingVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8 pointer-events-none'}`}>
-        {FLOATING_ICONS.map((item, idx) => (
-          <a key={item.label} href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="group relative">
-            <div className={`w-11 h-11 sm:w-12 sm:h-12 ${item.bg} rounded-xl flex items-center justify-center text-white shadow-lg ${item.shadow} transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl group-hover:rounded-2xl`}>
-              <item.icon size={20} className="sm:w-[22px] sm:h-[22px]" />
-            </div>
-            <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-neutral-900/95 backdrop-blur-xl border border-white/10 shadow-xl whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none -translate-x-2 group-hover:translate-x-0">
-              <span className="text-xs font-semibold text-stone-200">{item.label}</span>
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-neutral-900/95 border-l border-b border-white/10 rotate-45" />
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* NAVIGATION */}
+            {/* NAVIGATION */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'glass py-2' : 'py-4 bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
           <a href="#home" className="flex items-center gap-2 group">
