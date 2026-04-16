@@ -714,7 +714,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <span className="reveal text-amber-400 text-sm font-semibold tracking-wider uppercase flex items-center justify-center gap-2"><Compass size={16} /> Interactive Explorer</span>
-            <h2 className="reveal stagger-1 text-3xl md:text-4xl font-extrabold mt-3 mb-4">Explore South India <span className="text-gradient-warm">on the Map</span></h2>
+            <h2 className="reveal stagger-1 text-3xl md:text-4xl lg:text-5xl font-extrabold mt-3 mb-4">Explore South India <span className="text-gradient-warm">on the Map</span></h2>
             <p className="reveal stagger-2 text-stone-400 max-w-2xl mx-auto">{ALL_MARKERS_COUNT} destinations across 5 states — click any marker to discover and explore.</p>
           </div>
           <div className="reveal stagger-2"><IndiaMap /></div>
@@ -1112,47 +1112,6 @@ export default function Home() {
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* ✅ FIXED MOBILE BOTTOM NAVIGATION BAR ✅ */}
-      {/* This bar is FIXED at the bottom, has high Z-Index to sit on top, and uses touch-manipulation for fast tapping */}
-      <div className="fixed bottom-0 left-0 right-0 z-[60] bg-neutral-900/95 backdrop-blur-xl border-t border-white/10 sm:hidden flex justify-between items-center px-6 py-3 pb-6 shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
-        
-        {/* CALL BUTTON */}
-        <a 
-          href="tel:+919108597154" 
-          className="flex flex-col items-center justify-center gap-1 w-16 text-stone-400 hover:text-amber-400 active:text-amber-300 transition-all touch-manipulation group"
-        >
-          <div className="p-2 rounded-full bg-neutral-800 group-hover:bg-neutral-700 transition-colors">
-            <Phone size={22} strokeWidth={2.5} />
-          </div>
-          <span className="text-[10px] font-bold tracking-wide">CALL</span>
-        </a>
-
-        {/* WHATSAPP BUTTON (Floating Center) */}
-        <a 
-          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi RRM Holidays! I need help planning a trip.")}`} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="flex flex-col items-center justify-center gap-1 -mt-8 touch-manipulation"
-        >
-          <div className="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-white shadow-[0_4px_15px_rgba(22,163,74,0.4)] border-4 border-neutral-900 transition-transform active:scale-95">
-            <MessageCircle size={32} strokeWidth={2.5} fill="white" className="text-white" />
-          </div>
-          <span className="text-[11px] font-bold text-green-500 mt-1 tracking-wide">WHATSAPP</span>
-        </a>
-
-        {/* AI CHAT BUTTON */}
-        <a 
-          href="#ai-tools" 
-          className="flex flex-col items-center justify-center gap-1 w-16 text-stone-400 hover:text-blue-400 active:text-blue-300 transition-all touch-manipulation group"
-        >
-          <div className="p-2 rounded-full bg-neutral-800 group-hover:bg-neutral-700 transition-colors">
-            <Bot size={22} strokeWidth={2.5} />
-          </div>
-          <span className="text-[10px] font-bold tracking-wide">AI CHAT</span>
-        </a>
-
-      </div>
 
     </div>
   );
